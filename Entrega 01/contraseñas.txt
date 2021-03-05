@@ -1,0 +1,9 @@
+Inicio: alumno; alumno
+
+Apex: SYS; 1234
+
+Workspace: admin; Abd2020*
+
+Builder: OEHR; ADMIN; OEHR
+
+Run: admin; OEHR
