@@ -80,6 +80,9 @@ create or replace procedure test_borra_cliente is
     test4_listagg_out varchar(20);
 
 begin
+    delete from clientes where idCliente is not null;
+    delete from pedidos where idPedido is not null;
+
 
     INSERT INTO clientes
     VALUES (sec_clientes.nextval, 'PEPE');
@@ -148,7 +151,7 @@ begin
 
     -- Caso 4: Caso 3 pero con Listagg
     begin
-        INSERT INTO clientes values(2, 'ANA');
+        INSERT INTO clientes values (2, 'ANA');
         borrarCliente(2);
 
         select listagg(idCliente || nombre, '#')
@@ -157,15 +160,15 @@ begin
         from clientes;
 
         if test4_listagg_out = '1PEPE' then
-            DBMS_OUTPUT.PUT_LINE('BIEN c3: Borrado Correcto ' || test4_listagg_out);
+            DBMS_OUTPUT.PUT_LINE('BIEN c4: Borrado Correcto ' || test4_listagg_out);
         else
-            DBMS_OUTPUT.PUT_LINE('MAL c3: Borrado incorrecto');
+            DBMS_OUTPUT.PUT_LINE('MAL c4: Borrado incorrecto');
             DBMS_OUTPUT.PUT_LINE('Esperado: 1PEPE - Obtenido ' || test4_listagg_out);
         end if;
 
     exception
         when OTHERS then
-            DBMS_OUTPUT.PUT_LINE('MAL c3: Ha habido una excepción indeseada - ' || sqlerrm);
+            DBMS_OUTPUT.PUT_LINE('MAL c4: Ha habido una excepción indeseada - ' || sqlerrm);
     end;
 
 
