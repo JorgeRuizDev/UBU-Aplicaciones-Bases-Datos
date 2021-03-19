@@ -44,10 +44,6 @@ create or replace procedure borrarCliente(arg_nroDelCliente clientes.idCliente%t
     pragma exception_init ( HAS_CHILDREN, -2292 );
     -- Declaración de Cursores:
 
-
--- Declaración de Variables:
-    delete_row_count integer;
-
 begin
 
     delete
@@ -62,13 +58,13 @@ begin
 
 exception
     when NO_CLIENT then
-        raise_application_error(-20001, 'El cliente '||arg_nroDelCliente||' no existe');
+        raise_application_error(-20001, 'El cliente ' || arg_nroDelCliente || ' no existe');
 
     when HAS_CHILDREN then
-        raise_application_error(-20002, 'El cliente '||arg_nroDelCliente||' aun tiene pedidos');
+        raise_application_error(-20002, 'El cliente ' || arg_nroDelCliente || ' aun tiene pedidos');
         rollback;
 
-    when OTHERS  then
+    when OTHERS then
         rollback;
         raise;
 end;
@@ -77,10 +73,12 @@ end;
 create or replace procedure test_borra_cliente is
 
 
-    cursor vTest3 is select nombre from clientes;
+    cursor vTest3 is select nombre
+                     from clientes;
+    test3_nombre      clientes.nombre%type;
+    test3_rowcount    integer;
+    test4_listagg_out varchar(20);
 
-    test3_nombre clientes.nombre%type;
-    test3_rowcount integer;
 begin
 
     INSERT INTO clientes
@@ -96,7 +94,7 @@ begin
     INSERT INTO clientes
     VALUES (sec_clientes.nextval, 'ANA');
 
-   commit;
+    commit;
 
 
     -- Caso 1: Borrado de un cliente inexistente:
@@ -108,7 +106,7 @@ begin
             if sqlcode = -20001 then
                 DBMS_OUTPUT.PUT_LINE('BIEN c1: ' || sqlerrm);
             else
-                DBMS_OUTPUT.PUT_LINE('MAL c1: la excepción lanzada es incorrecta ' || sqlerrm );
+                DBMS_OUTPUT.PUT_LINE('MAL c1: la excepción lanzada es incorrecta ' || sqlerrm);
             end if;
     end;
 
@@ -121,7 +119,7 @@ begin
             if sqlcode = -20002 then
                 DBMS_OUTPUT.PUT_LINE('BIEN c2: ' || sqlerrm);
             else
-                DBMS_OUTPUT.PUT_LINE('MAL c2: la excepción lanzada es incorrecta ' || sqlerrm );
+                DBMS_OUTPUT.PUT_LINE('MAL c2: la excepción lanzada es incorrecta ' || sqlerrm);
             end if;
     end;
 
@@ -143,10 +141,33 @@ begin
             DBMS_OUTPUT.PUT_LINE('MAL c3: Borrado incorrecto');
         end if;
 
-        exception
-            when OTHERS then
-                DBMS_OUTPUT.PUT_LINE('MAL c3: Ha habido una excepción indeseada - ' || sqlerrm);
+    exception
+        when OTHERS then
+            DBMS_OUTPUT.PUT_LINE('MAL c3: Ha habido una excepción indeseada - ' || sqlerrm);
     end;
+
+    -- Caso 4: Caso 3 pero con Listagg
+    begin
+        INSERT INTO clientes values(2, 'ANA');
+        borrarCliente(2);
+
+        select listagg(idCliente || nombre, '#')
+                       within group (order by idCliente)
+        into test4_listagg_out
+        from clientes;
+
+        if test4_listagg_out = '1PEPE' then
+            DBMS_OUTPUT.PUT_LINE('BIEN c3: Borrado Correcto ' || test4_listagg_out);
+        else
+            DBMS_OUTPUT.PUT_LINE('MAL c3: Borrado incorrecto');
+            DBMS_OUTPUT.PUT_LINE('Esperado: 1PEPE - Obtenido ' || test4_listagg_out);
+        end if;
+
+    exception
+        when OTHERS then
+            DBMS_OUTPUT.PUT_LINE('MAL c3: Ha habido una excepción indeseada - ' || sqlerrm);
+    end;
+
 
 end;
 /
