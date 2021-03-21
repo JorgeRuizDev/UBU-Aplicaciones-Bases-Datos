@@ -59,6 +59,7 @@ begin
 exception
     when NO_CLIENT then
         raise_application_error(-20001, 'El cliente ' || arg_nroDelCliente || ' no existe');
+        rollback;
 
     when HAS_CHILDREN then
         raise_application_error(-20002, 'El cliente ' || arg_nroDelCliente || ' aun tiene pedidos');
@@ -103,7 +104,7 @@ begin
     -- Caso 1: Borrado de un cliente inexistente:
     begin
         borrarCliente(3);
-        DBMS_OUTPUT.PUT_LINE('MAL: No detecta un borrado de un cliente inexistente');
+        DBMS_OUTPUT.PUT_LINE('MAL c1: No detecta un borrado de un cliente inexistente');
     exception
         when others then
             if sqlcode = -20001 then
@@ -116,7 +117,7 @@ begin
     -- Caso 2: Borrado de cliente con pedidos:
     begin
         borrarCliente(1);
-        DBMS_OUTPUT.PUT_LINE('MAL: No detecta un borrado de un cliente con pedidos');
+        DBMS_OUTPUT.PUT_LINE('MAL c2: No detecta un borrado de un cliente con pedidos');
     exception
         when others then
             if sqlcode = -20002 then
