@@ -58,12 +58,12 @@ begin
 
 exception
     when NO_CLIENT then
-        raise_application_error(-20001, 'El cliente ' || arg_nroDelCliente || ' no existe');
         rollback;
+        raise_application_error(-20001, 'El cliente ' || arg_nroDelCliente || ' no existe');
 
     when HAS_CHILDREN then
-        raise_application_error(-20002, 'El cliente ' || arg_nroDelCliente || ' aun tiene pedidos');
         rollback;
+        raise_application_error(-20002, 'El cliente ' || arg_nroDelCliente || ' aun tiene pedidos');
 
     when OTHERS then
         rollback;
@@ -175,9 +175,10 @@ begin
 
 end;
 /
-
+select * from clientes;
 begin
     test_borra_cliente;
 end;
 /
+select * from clientes;
 -- Jorge Ruiz Gómez & Iván Ruiz Gázquez
