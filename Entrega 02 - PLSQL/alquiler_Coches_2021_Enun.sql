@@ -63,14 +63,14 @@ create table lineas_factura(
 	primary key ( nroFactura, concepto)
 );
 
-/*
+
 create or replace procedure alquilar(arg_NIF_cliente varchar,
   arg_matricula varchar, arg_fecha_ini date, arg_fecha_fin date) is
 begin
   null;
 end;
 /
-*/
+
 create or replace
 procedure reset_seq( p_seq_name varchar )
 --From https://stackoverflow.com/questions/51470/how-do-i-reset-a-sequence-in-oracle
@@ -83,7 +83,7 @@ begin
 
     --Utilizo ese valor en negativo para poner la secuencia cero, pimero cambiando el incremento de la secuencia
     execute immediate
-    'alter sequence ' || p_seq_name || ' increment by -' || l_val || 
+    'alter sequence ' || p_seq_name || ' increment by -' || l_val ||
                                                           ' minvalue 0';
    --segundo pidiendo el siguiente valor
     execute immediate
@@ -101,40 +101,38 @@ begin
   reset_seq( 'seq_modelos' );
   reset_seq( 'seq_num_fact' );
   reset_seq( 'seq_reservas' );
-        
-  
-    delete from lineas_factura where NROFACTURA is not null;
-    delete from facturas where NROFACTURA is not null;
-    delete from reservas where IDRESERVA is not null;
-    delete from vehiculos where MATRICULA is not null;
-    delete from modelos where ID_MODELO is not null;
-    delete from precio_combustible where TIPO_COMBUSTIBLE is not null;
-    delete from clientes where NIF is not null ;
-   
-		
+
+
+    delete from lineas_factura;
+    delete from facturas;
+    delete from reservas;
+    delete from vehiculos;
+    delete from modelos;
+    delete from precio_combustible;
+    delete from clientes;
+
+
     insert into clientes values ('12345678A', 'Pepe', 'Perez', 'Porras', 'C/Perezoso n1');
     insert into clientes values ('11111111B', 'Beatriz', 'Barbosa', 'Bernardez', 'C/Barriocanal n1');
-    
+
     insert into precio_combustible values ('Gasolina', 1.5);
     insert into precio_combustible values ('Gasoil',   1.4);
-    
+
     insert into modelos values ( seq_modelos.nextval, 'Renault Clio Gasolina', 15, 50, 'Gasolina');
     insert into vehiculos values ( '1234-ABC', seq_modelos.currval, 'VERDE');
 
     insert into modelos values ( seq_modelos.nextval, 'Renault Clio Gasoil', 16,   50, 'Gasoil');
     insert into vehiculos values ( '1111-ABC', seq_modelos.currval, 'VERDE');
     insert into vehiculos values ( '2222-ABC', seq_modelos.currval, 'GRIS');
-	
+
     commit;
 end;
 /
-begin
-    inicializa_test();
-end;
+exec inicializa_test;
 
 create or replace procedure test_alquila_coches is
 begin
-	 
+
   --caso 1 nro dias negativo
   begin
     inicializa_test;
@@ -148,7 +146,7 @@ begin
         dbms_output.put_line('MAL: Caso nro dias negativo levanta excepcion '||sqlcode||' '||sqlerrm);
       end if;
   end;
-  
+
   --caso 2 vehiculo inexistente
   begin
     inicializa_test;
@@ -162,7 +160,7 @@ begin
         dbms_output.put_line('MAL: Caso vehiculo inexistente levanta excepcion '||sqlcode||' '||sqlerrm);
       end if;
   end;
-  
+
   --caso 3 cliente inexistente
   begin
     inicializa_test;
@@ -176,27 +174,27 @@ begin
         dbms_output.put_line('MAL: Caso cliente inexistente levanta excepcion '||sqlcode||' '||sqlerrm);
       end if;
   end;
-  
-  --caso 4 Todo correcto pero NO especifico la fecha final 
+
+  --caso 4 Todo correcto pero NO especifico la fecha final
   declare
-                
-    resultadoPrevisto varchar(200) := 
+
+    resultadoPrevisto varchar(200) :=
       '1234-ABC11/03/1313512345678A4 dias de alquiler, vehiculo modelo 1   60#'||
       '1234-ABC11/03/1313512345678ADeposito lleno de 50 litros de Gasolina 75';
-                
+
     resultadoReal varchar(200)  := '';
     fila varchar(200);
-  begin  
+  begin
     inicializa_test;
     alquilar('12345678A', '1234-ABC', date '2013-3-11', null);
-    
+
     SELECT listAgg(matricula||fecha_ini||fecha_fin||facturas.importe||cliente
 								||concepto||lineas_factura.importe, '#')
             within group (order by nroFactura, concepto)
     into resultadoReal
     FROM facturas join lineas_factura using(NroFactura)
                   join reservas using(cliente);
-								
+
     dbms_output.put_line('Caso Todo correcto pero NO especifico la fecha final:');
    if resultadoReal=resultadoPrevisto then
       dbms_output.put_line('--OK SI Coinciden la reserva, la factura y las linea de factura');
@@ -205,25 +203,25 @@ begin
       dbms_output.put_line('resultadoPrevisto='||resultadoPrevisto);
       dbms_output.put_line('resultadoReal    ='||resultadoReal);
     end if;
-    
-  exception   
+
+  exception
     when others then
        dbms_output.put_line('--MAL: Caso Todo correcto pero NO especifico la fecha final devuelve '||sqlerrm);
   end;
-  
+
   --caso 5 Intentar alquilar un coche ya alquilado
-  
+
   --5.1 la fecha ini del alquiler esta dentro de una reserva
   begin
-    inicializa_test;    
+    inicializa_test;
 	--Reservo del 2013-3-10 al 12
 	insert into reservas values
 	 (seq_reservas.NEXTVAL, '11111111B', '1234-ABC', date '2013-3-11'-1, date '2013-3-11'+1);
-    --Fecha ini de la reserva el 11 
+    --Fecha ini de la reserva el 11
 	alquilar('12345678A', '1234-ABC', date '2013-3-11', date '2013-3-13');
-	
+
     dbms_output.put_line('MAL: Caso vehiculo ocupado solape de fecha_ini no levanta excepcion');
-	
+
   exception
     when others then
       if sqlcode=-20004 then
@@ -231,19 +229,19 @@ begin
       else
         dbms_output.put_line('MAL: Caso vehiculo ocupado solape de fecha_ini levanta excepcion '||sqlcode||' '||sqlerrm);
       end if;
-  end; 
-  
+  end;
+
    --5.2 la fecha fin del alquiler esta dentro de una reserva
   begin
-    inicializa_test;    
+    inicializa_test;
 	--Reservo del 2013-3-10 al 12
 	insert into reservas values
 	 (seq_reservas.NEXTVAL, '11111111B', '1234-ABC', date '2013-3-11'-1, date '2013-3-11'+1);
-    --Fecha fin de la reserva el 11 
+    --Fecha fin de la reserva el 11
 	alquilar('12345678A', '1234-ABC', date '2013-3-7', date '2013-3-11');
-	
+
     dbms_output.put_line('MAL: Caso vehiculo ocupado solape de fecha_fin no levanta excepcion');
-	
+
   exception
     when others then
       if sqlcode=-20004 then
@@ -251,19 +249,19 @@ begin
       else
         dbms_output.put_line('MAL: Caso vehiculo ocupado solape de fecha_fin levanta excepcion '||sqlcode||' '||sqlerrm);
       end if;
-  end; 
-  
+  end;
+
   --5.3 la el intervalo del alquiler esta dentro de una reserva
   begin
-    inicializa_test;    
+    inicializa_test;
 	--Reservo del 2013-3-9 al 13
 	insert into reservas values
 	 (seq_reservas.NEXTVAL, '11111111B', '1234-ABC', date '2013-3-11'-2, date '2013-3-11'+2);
     -- reserva del 4 al 19
 	alquilar('12345678A', '1234-ABC', date '2013-3-11'-7, date '2013-3-12'+7);
-	
+
     dbms_output.put_line('MAL: Caso vehiculo ocupado intervalo del alquiler esta dentro de una reserva no levanta excepcion');
-	
+
   exception
     when others then
       if sqlcode=-20004 then
@@ -272,30 +270,30 @@ begin
         dbms_output.put_line('MAL: Caso vehiculo ocupado intervalo del alquiler esta dentro de una reserva levanta excepcion '
         ||sqlcode||' '||sqlerrm);
       end if;
-  end; 
-  
-   --caso 6 Todo correcto pero SI especifico la fecha final 
+  end;
+
+   --caso 6 Todo correcto pero SI especifico la fecha final
   declare
-                                      
+
     resultadoPrevisto varchar(400) := '12222-ABC11/03/1313/03/1310212345678A2 dias de alquiler, vehiculo modelo 2   32#'||
                                     '12222-ABC11/03/1313/03/1310212345678ADeposito lleno de 50 litros de Gasoil   70';
-                                      
-    resultadoReal varchar(400)  := '';    
+
+    resultadoReal varchar(400)  := '';
     fila varchar(200);
   begin
     inicializa_test;
     alquilar('12345678A', '2222-ABC', date '2013-3-11', date '2013-3-13');
-    
+
     SELECT listAgg(nroFactura||matricula||fecha_ini||fecha_fin||facturas.importe||cliente
 								||concepto||lineas_factura.importe, '#')
             within group (order by nroFactura, concepto)
     into resultadoReal
     FROM facturas join lineas_factura using(NroFactura)
                   join reservas using(cliente);
-    
-    
+
+
     dbms_output.put_line('Caso Todo correcto pero SI especifico la fecha final');
-    
+
     if resultadoReal=resultadoPrevisto then
       dbms_output.put_line('--OK SI Coinciden la reserva, la factura y las linea de factura');
     else
@@ -303,17 +301,14 @@ begin
       dbms_output.put_line('resultadoPrevisto='||resultadoPrevisto);
       dbms_output.put_line('resultadoReal    ='||resultadoReal);
     end if;
-    
-  exception   
+
+  exception
     when others then
        dbms_output.put_line('--MAL: Caso Todo correcto pero SI especifico la fecha final devuelve '||sqlerrm);
   end;
- 
+
 end;
 /
 
 set serveroutput on
-begin
-    test_alquila_coches;
-end;
-
+exec test_alquila_coches;
