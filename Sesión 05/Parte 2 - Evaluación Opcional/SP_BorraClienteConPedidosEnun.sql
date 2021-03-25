@@ -175,10 +175,8 @@ begin
 
 end;
 /
-select * from clientes;
 begin
     test_borra_cliente;
 end;
 /
-select * from clientes;
 -- Jorge Ruiz Gómez & Iván Ruiz Gázquez
