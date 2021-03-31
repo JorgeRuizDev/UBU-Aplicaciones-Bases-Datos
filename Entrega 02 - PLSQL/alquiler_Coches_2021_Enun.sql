@@ -62,15 +62,15 @@ create table lineas_factura(
 	importe		numeric( 7, 2),
 	primary key ( nroFactura, concepto)
 );
-	
 
+/*
 create or replace procedure alquilar(arg_NIF_cliente varchar,
   arg_matricula varchar, arg_fecha_ini date, arg_fecha_fin date) is
 begin
   null;
 end;
 /
-
+*/
 create or replace
 procedure reset_seq( p_seq_name varchar )
 --From https://stackoverflow.com/questions/51470/how-do-i-reset-a-sequence-in-oracle
@@ -103,13 +103,13 @@ begin
   reset_seq( 'seq_reservas' );
         
   
-    delete from lineas_factura;
-    delete from facturas;
-    delete from reservas;
-    delete from vehiculos;
-    delete from modelos;
-    delete from precio_combustible;
-    delete from clientes;
+    delete from lineas_factura where NROFACTURA is not null;
+    delete from facturas where NROFACTURA is not null;
+    delete from reservas where IDRESERVA is not null;
+    delete from vehiculos where MATRICULA is not null;
+    delete from modelos where ID_MODELO is not null;
+    delete from precio_combustible where TIPO_COMBUSTIBLE is not null;
+    delete from clientes where NIF is not null ;
    
 		
     insert into clientes values ('12345678A', 'Pepe', 'Perez', 'Porras', 'C/Perezoso n1');
@@ -128,7 +128,9 @@ begin
     commit;
 end;
 /
-exec inicializa_test;
+begin
+    inicializa_test();
+end;
 
 create or replace procedure test_alquila_coches is
 begin
@@ -311,4 +313,7 @@ end;
 /
 
 set serveroutput on
-exec test_alquila_coches;
+begin
+    test_alquila_coches;
+end;
+--exec test_alquila_coches;
