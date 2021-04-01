@@ -18,7 +18,6 @@ create or replace procedure alquilar(arg_NIF_cliente varchar,
     CLIENT_DOES_NOT_EXIST exception; -- Req. 5
     pragma exception_init ( CLIENT_DOES_NOT_EXIST, -20001 );
 
-
     -- Declaración de Records:
     type type_modelo_reserva is record
                                 (
@@ -72,9 +71,7 @@ begin
 
     if num_dias is null then
         num_dias:= 4;
-    end if;
-
-    if num_dias < 0 then
+    elsif num_dias < 0 then
         raise NEGATIVE_DATES_DIFF;
     end if;
 
@@ -120,6 +117,7 @@ begin
             vehiculo_a_reservar.tipo_combustible,
             precio_total_combustible);
 
+    -- Fin de la transacción
     commit;
 
 exception
