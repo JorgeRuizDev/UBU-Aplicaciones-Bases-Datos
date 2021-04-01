@@ -12,10 +12,10 @@ create or replace procedure alquilar(arg_NIF_cliente varchar,
     VEHICLE_NOT_AVAILABLE exception; -- Req. 3
     pragma exception_init ( VEHICLE_NOT_AVAILABLE, -20004 );
 
-    FK_VIOLATED exception; --ORA-02291: integrity constraint (la que sea) violated - parent key not found
+    FK_VIOLATED exception; --ORA-02291: integrity constraint (la que sea) violated - parent key not found // Req. 5
     pragma exception_init (FK_VIOLATED, -2291);
 
-    CLIENT_DOES_NOT_EXIST exception;
+    CLIENT_DOES_NOT_EXIST exception; -- Req. 5
     pragma exception_init ( CLIENT_DOES_NOT_EXIST, -20001 );
 
 
@@ -31,18 +31,14 @@ create or replace procedure alquilar(arg_NIF_cliente varchar,
 
 
     -- Declaración de Variables:
-    fecha_inicial            date;
-    fecha_final              date;
-    vehiculo_a_reservar      type_modelo_reserva;
-    num_dias                 integer;
-    reserva_actual           reservas.idreserva%type;
+    fecha_inicial            date; -- Req. 1
+    fecha_final              date; -- Req. 1
+    num_dias                 integer; -- Req. 1 y Req. 5
+    vehiculo_a_reservar      type_modelo_reserva; -- Req. 2
+    reserva_actual           reservas.idreserva%type; -- Req. 3; La variable almacena un fetch
+    precio_total_combustible NUMBER; -- Req. 5.1
+    precio_total_alquiler    NUMBER; -- Req. 5.2
 
-    -- Facturas:
-    precio_total_combustible NUMBER;
-    precio_total_alquiler    NUMBER;
-
-
-    test clientes.nif%type;
     -- Declaración de Cursores
     -- Req. 2
     cursor obtener_modelo is
@@ -74,6 +70,10 @@ begin
 
     num_dias := (fecha_final - fecha_inicial);
 
+    if num_dias is null then
+        num_dias:= 4;
+    end if;
+
     if num_dias < 0 then
         raise NEGATIVE_DATES_DIFF;
     end if;
@@ -101,16 +101,12 @@ begin
     -- Requisito 4: Insertar en la BBDD
     insert into RESERVAS values (SEQ_RESERVAS.nextval, arg_NIF_cliente, arg_matricula, fecha_inicial, fecha_final);
 
-
-
-    --TODO: Los comentarios/preguntas
-
-
     -- Requisito 5: Factura y Total
     precio_total_alquiler := num_dias * vehiculo_a_reservar.precio_cada_dia;
     precio_total_combustible := vehiculo_a_reservar.capacidad_deposito * vehiculo_a_reservar.precio_por_litro;
 
-    insert into FACTURAS values (SEQ_NUM_FACT.nextval, precio_total_combustible + precio_total_alquiler, arg_NIF_cliente);
+    insert into FACTURAS
+    values (SEQ_NUM_FACT.nextval, precio_total_combustible + precio_total_alquiler, arg_NIF_cliente);
 
     -- Requisito 5.1 Primera línea de factura
     insert into LINEAS_FACTURA
@@ -124,7 +120,6 @@ begin
             'Deposito lleno de ' || vehiculo_a_reservar.capacidad_deposito || ' litros de ' ||
             vehiculo_a_reservar.tipo_combustible,
             precio_total_combustible);
-
 
     commit;
 
@@ -142,7 +137,6 @@ exception
         raise_application_error(-20004, 'El vehiculo no está disponible.');
 
     when FK_VIOLATED then
-        DBMS_OUTPUT.PUT_LINE(SQLERRM);
         rollback;
         raise_application_error(-20001, 'Cliente inexistente.');
 
@@ -151,6 +145,11 @@ exception
         raise;
 end;
 /
+
+
+/*
+    Preguntas y Respuestas!
+*/
 SET SERVEROUT ON
 -- Ejecución de los tests
 begin
