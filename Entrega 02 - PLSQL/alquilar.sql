@@ -87,7 +87,6 @@ begin
         raise NONEXISTENT_VEHICLE;
     end if;
     close obtener_modelo;
-    -- TODO: Lo de bloquear la tabla
 
     -- Requisito 3: Comprobar Reservas
     open obtener_reservas_intervalo; -- Realizamos la select
@@ -149,6 +148,7 @@ end;
 
 /*
     Preguntas y Respuestas!
+    TODO: Bloquear la tabla en el REQ 2
 */
 SET SERVEROUT ON
 -- Ejecución de los tests
