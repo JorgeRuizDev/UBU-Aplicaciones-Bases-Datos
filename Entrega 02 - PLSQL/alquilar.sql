@@ -22,7 +22,7 @@ create or replace procedure alquilar(arg_NIF_cliente varchar,
     -- Declaración de Records:
     type type_modelo_reserva is record
                                 (
-                                    modelo             modelos.nombre%type,
+                                    modelo             modelos.id_modelo%type,
                                     precio_cada_dia    modelos.precio_cada_dia%type,
                                     capacidad_deposito modelos.capacidad_deposito%type,
                                     tipo_combustible   precio_combustible.tipo_combustible%type,
@@ -41,10 +41,12 @@ create or replace procedure alquilar(arg_NIF_cliente varchar,
     precio_total_combustible NUMBER;
     precio_total_alquiler    NUMBER;
 
+
+    test clientes.nif%type;
     -- Declaración de Cursores
     -- Req. 2
     cursor obtener_modelo is
-        select NOMBRE, PRECIO_CADA_DIA, CAPACIDAD_DEPOSITO, TIPO_COMBUSTIBLE, PRECIO_POR_LITRO
+        select ID_MODELO, PRECIO_CADA_DIA, CAPACIDAD_DEPOSITO, TIPO_COMBUSTIBLE, PRECIO_POR_LITRO
         from MODELOS MOD
                  join PRECIO_COMBUSTIBLE using (TIPO_COMBUSTIBLE)
                  join VEHICULOS using (ID_MODELO)
@@ -96,40 +98,35 @@ begin
     end if;
     close obtener_reservas_intervalo;
 
-
     -- Requisito 4: Insertar en la BBDD
-    insert into RESERVAS values (SEQ_RESERVAS.nextval, arg_NIF_cliente, arg_matricula, fecha_final, fecha_final);
+    insert into RESERVAS values (SEQ_RESERVAS.nextval, arg_NIF_cliente, arg_matricula, fecha_inicial, fecha_final);
+
+
+
     --TODO: Los comentarios/preguntas
 
-    -- Requisito 5: Facturas
-    --insert into facturas values (SEQ_NUM_FACT.nextval,);
-
-    -- OJO!: No volver a hacer fetch de los valores del vehículo porque ya se encuentran en la variable "vehículo_a_reservar"
-
-
-    -- Requisito 5.1 Primera línea de factura
-    precio_total_alquiler := num_dias * vehiculo_a_reservar.precio_cada_dia;
-
-    insert into LINEAS_FACTURA
-    values (SEQ_NUM_FACT.nextval,
-            num_dias || ' días de alquiler vehiculo modelo ' || vehiculo_a_reservar.modelo,
-            precio_total_alquiler);
-
-
-    -- Requisito 5.2 Segunda línea de factura
-    precio_total_combustible := vehiculo_a_reservar.capacidad_deposito * vehiculo_a_reservar.precio_por_litro;
-
-    insert into LINEAS_FACTURA
-    values (SEQ_NUM_FACT.currval,
-            'Deposito lleno (' || vehiculo_a_reservar.capacidad_deposito || ' litros de ' ||
-            vehiculo_a_reservar.tipo_combustible,
-            precio_total_combustible);
-    commit;
 
     -- Requisito 5: Factura y Total
+    precio_total_alquiler := num_dias * vehiculo_a_reservar.precio_cada_dia;
+    precio_total_combustible := vehiculo_a_reservar.capacidad_deposito * vehiculo_a_reservar.precio_por_litro;
 
-    insert into FACTURAS values (SEQ_NUM_FACT.currval, precio_total_combustible + precio_total_alquiler, arg_NIF_cliente);
+    insert into FACTURAS values (SEQ_NUM_FACT.nextval, precio_total_combustible + precio_total_alquiler, arg_NIF_cliente);
 
+    -- Requisito 5.1 Primera línea de factura
+    insert into LINEAS_FACTURA
+    values (SEQ_NUM_FACT.currval,
+            num_dias || ' dias de alquiler, vehiculo modelo ' || vehiculo_a_reservar.modelo,
+            precio_total_alquiler);
+
+    -- Requisito 5.2 Segunda línea de factura
+    insert into LINEAS_FACTURA
+    values (SEQ_NUM_FACT.currval,
+            'Deposito lleno de ' || vehiculo_a_reservar.capacidad_deposito || ' litros de ' ||
+            vehiculo_a_reservar.tipo_combustible,
+            precio_total_combustible);
+
+
+    commit;
 
 exception
     when NEGATIVE_DATES_DIFF then
@@ -142,19 +139,19 @@ exception
 
     when VEHICLE_NOT_AVAILABLE then
         rollback;
-        raise_application_error(-20004, 'El vehiculo no está disponible');
+        raise_application_error(-20004, 'El vehiculo no está disponible.');
 
     when FK_VIOLATED then
+        DBMS_OUTPUT.PUT_LINE(SQLERRM);
         rollback;
-        raise_application_error(-20001, 'Cliente inexistente');
+        raise_application_error(-20001, 'Cliente inexistente.');
 
     when OTHERS then
-        -- TODO: Tratamiento genérico:
         rollback;
         raise;
 end;
 /
-
+SET SERVEROUT ON
 -- Ejecución de los tests
 begin
     TEST_ALQUILA_COCHES();
