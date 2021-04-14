@@ -1,0 +1,66 @@
+INFO : [lsi.ubu.solucion.PistasDeTenis.main(PistasDeTenis.java:39)]2021-04-12 20:20:01.900 [main] PistasDeTenis - Comienzo test pista de tenis ...
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:109)]2021-04-12 20:20:04.553 [main] PoolDeConexiones - Activacion de Autocommit=false
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:117)]2021-04-12 20:20:04.556 [main] PoolDeConexiones - Activacion de Autocommit=false
+Nivel de Aislamiento=TRANSACTION_READ_COMMITTED
+ERROR: [lsi.ubu.solucion.PistasDeTenis.reservarPista(PistasDeTenis.java:275)]2021-04-12 20:20:04.990 [main] PistasDeTenis - ORA-00942: table or view does not exist
+
+INFO : [lsi.ubu.solucion.PistasDeTenis.main(PistasDeTenis.java:39)]2021-04-12 20:20:27.911 [main] PistasDeTenis - Comienzo test pista de tenis ...
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:27.988 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:27.988 [main] ExecuteScript - SQL*Plus: Release 11.2.0.2.0 Production on Lun Abr 12 20:20:27 2021
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:27.989 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:27.989 [main] ExecuteScript - Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:27.990 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.018 [main] ExecuteScript - ERROR:
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.019 [main] ExecuteScript - ORA-28002: the password will expire within 0 days
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.019 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.020 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.053 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.054 [main] ExecuteScript - Connected to:
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.054 [main] ExecuteScript - Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.054 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.128 [main] ExecuteScript - drop table reservas
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.130 [main] ExecuteScript -            *
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.150 [main] ExecuteScript - ERROR at line 1:
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.151 [main] ExecuteScript - ORA-00942: table or view does not exist
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.163 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.163 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.163 [main] ExecuteScript - drop table pistas
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.164 [main] ExecuteScript -            *
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.164 [main] ExecuteScript - ERROR at line 1:
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.164 [main] ExecuteScript - ORA-00942: table or view does not exist
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.164 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.164 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.165 [main] ExecuteScript - drop sequence sec_num_pista
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.165 [main] ExecuteScript -               *
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.175 [main] ExecuteScript - ERROR at line 1:
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.178 [main] ExecuteScript - ORA-02289: sequence does not exist
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.181 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.183 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.226 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.226 [main] ExecuteScript - Table created.
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.227 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.252 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.252 [main] ExecuteScript - Table created.
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.252 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.261 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.261 [main] ExecuteScript - Sequence created.
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.261 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.262 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.262 [main] ExecuteScript - Commit complete.
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.264 [main] ExecuteScript - 
+DEBUG: [lsi.ubu.util.ExecuteScript.run(ExecuteScript.java:59)]2021-04-12 20:20:28.273 [main] ExecuteScript - Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:109)]2021-04-12 20:20:30.455 [main] PoolDeConexiones - Activacion de Autocommit=false
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:117)]2021-04-12 20:20:30.455 [main] PoolDeConexiones - Activacion de Autocommit=false
+Nivel de Aislamiento=TRANSACTION_READ_COMMITTED
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:109)]2021-04-12 20:20:30.970 [main] PoolDeConexiones - Activacion de Autocommit=false
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:117)]2021-04-12 20:20:30.970 [main] PoolDeConexiones - Activacion de Autocommit=false
+Nivel de Aislamiento=TRANSACTION_READ_COMMITTED
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:109)]2021-04-12 20:20:30.981 [main] PoolDeConexiones - Activacion de Autocommit=false
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:117)]2021-04-12 20:20:30.981 [main] PoolDeConexiones - Activacion de Autocommit=false
+Nivel de Aislamiento=TRANSACTION_READ_COMMITTED
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:109)]2021-04-12 20:20:30.998 [main] PoolDeConexiones - Activacion de Autocommit=false
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:117)]2021-04-12 20:20:30.998 [main] PoolDeConexiones - Activacion de Autocommit=false
+Nivel de Aislamiento=TRANSACTION_READ_COMMITTED
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:109)]2021-04-12 20:20:31.011 [main] PoolDeConexiones - Activacion de Autocommit=false
+INFO : [lsi.ubu.util.PoolDeConexiones.getConnection(PoolDeConexiones.java:117)]2021-04-12 20:20:31.011 [main] PoolDeConexiones - Activacion de Autocommit=false
+Nivel de Aislamiento=TRANSACTION_READ_COMMITTED
