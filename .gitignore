@@ -1,5 +1,8 @@
 *.pdf
 *.idea
 *.zip
-
+/out
+/bin
+/.idea
+.iml
 !/Sesión 07/PruebaSimple.zip
