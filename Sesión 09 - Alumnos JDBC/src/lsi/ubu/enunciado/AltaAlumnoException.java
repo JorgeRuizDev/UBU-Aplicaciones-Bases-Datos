@@ -22,17 +22,27 @@ public class AltaAlumnoException extends SQLException {
 	public static final int NO_EXISTE_ASIG_O_GRUPO = 1;
 	public static final int SIN_PLAZAS = 2;
 		
-	private int codigo; // = -1;
-	private String mensaje;
+	private final int codigo; // = -1;
+	private final String mensaje;
 
-	private static Logger l = LoggerFactory.getLogger(AltaAlumnoException.class);	
+	private static final Logger l = LoggerFactory.getLogger(AltaAlumnoException.class);
 
 	public AltaAlumnoException(int code) {
-		/*
-		 * A completar por el alumno
-		 */
 
-		l.error(mensaje);
+		codigo = code;
+
+		switch (codigo){
+			case 1:
+				mensaje = "Probablemente la asignatura o el grupo no exista.";
+				break;
+			case 2:
+				mensaje = "No hay plazas para ese grupo";
+				break;
+			default:
+				mensaje = "";
+
+		}
+		//l.error(mensaje);
 
 		// Traza_de_pila
 		for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
