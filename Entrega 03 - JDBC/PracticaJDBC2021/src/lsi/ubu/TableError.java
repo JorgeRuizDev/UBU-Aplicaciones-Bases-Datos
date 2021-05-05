@@ -7,6 +7,6 @@ public abstract class TableError {
 	public static final int UNQ_VIOLATED = 3;
 	//Seguir añadiendo...
 
-	abstract int translate( int errorSGBD);
+	public abstract int translate( int errorSGBD);
 
 } // enum
