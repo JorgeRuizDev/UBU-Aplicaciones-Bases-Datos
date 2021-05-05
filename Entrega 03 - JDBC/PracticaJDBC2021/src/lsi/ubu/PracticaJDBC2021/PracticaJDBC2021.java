@@ -22,7 +22,6 @@ public class PracticaJDBC2021 {
 	private static final String script_path = "sql/";
     
     public static void main(String [] argv) {
-    	
     	inicializaciones();
 		pruebaAltaAutorizado();
 
