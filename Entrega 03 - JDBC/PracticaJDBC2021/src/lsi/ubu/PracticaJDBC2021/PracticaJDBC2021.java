@@ -111,6 +111,9 @@ public class PracticaJDBC2021 {
 		PreparedStatement insertaCliente = null;
 
 		ResultSet resCliente = null;
+
+		TableError tablaErrores = new OracleTableError();
+
 		try {
 			// Obtén una conexión de la pool de conexiones.
 			conn = pool.getConnection();
@@ -149,13 +152,12 @@ public class PracticaJDBC2021 {
 					 * puede estar relacionado con otra tabla totalmente distinta.
 					 * */
 
-					switch (errors.translate(e.getErrorCode())) {
-						case TableError.FK_VIOLATED:
-							throw new SQLException_banco(SQLException_banco.NO_EXISTE_CTA);
-						case TableError.UNQ_VIOLATED:
-							throw new SQLException_banco(SQLException_banco.AUTORIZACION_REPETIDA);
-						default:
-							throw e;
+					if (tablaErrores.checkExceptionToCode(e, TableError.FK_VIOLATED)) {
+						throw new SQLException_banco(SQLException_banco.NO_EXISTE_CTA);
+					} else if (tablaErrores.checkExceptionToCode(e, TableError.UNQ_VIOLATED)) {
+						throw new SQLException_banco(SQLException_banco.AUTORIZACION_REPETIDA);
+					} else {
+						throw e;
 					}
 				}
 			}
@@ -163,25 +165,46 @@ public class PracticaJDBC2021 {
 			conn.commit();
 
 		} catch (SQLException_banco e) {
+			rollback(conn);
+			logException(e);
+			// Relanzamos la excepción
 			throw e;
-		} catch (SQLException e) {
-
-			if (conn != null) conn.rollback();
-			l.error(e.getMessage());
-			l.error(e.getLocalizedMessage());
-
-
+		} catch (Exception e) {
+			// Atrapamos cualquier excepción.
+			rollback(conn);
+			logException(e);
 		} finally {
-			// Cierre de conexiones
+			try {
+				if (conn != null) conn.close();
+				if (fetchCliente != null) fetchCliente.close();
+				if (insertaCliente != null) insertaCliente.close();
+				if (resCliente != null) resCliente.close();
+			} catch (Exception e) {
+				// Logueamos CUALQUIER excepción.
+				logException(e);
+			}
+
 		}
 
 
 	}
 
-	public static boolean checkExceptionToCode(SQLException ex, int error) {
-		// return new
-		// OracleTableError().translate(e.getErrorCode())==TableError.FK_VIOLATED
-		return new OracleTableError().translate(ex.getErrorCode()) == error;
+	public static void logException(Exception e) {
+		l.error(e.getMessage());
+		l.error(e.getLocalizedMessage());
+
+		for (var st : e.getStackTrace())
+			l.info(st.toString());
+	}
+
+	public static void rollback(Connection conn) {
+		if (conn != null) {
+			try {
+				conn.rollback();
+			} catch (SQLException e) {
+				logException(e);
+			}
+		}
 	}
 
 	static public void creaTablas() {

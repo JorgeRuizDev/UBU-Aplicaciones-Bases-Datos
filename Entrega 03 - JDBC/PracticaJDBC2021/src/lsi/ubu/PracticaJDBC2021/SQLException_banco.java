@@ -2,6 +2,7 @@ package lsi.ubu.PracticaJDBC2021;
 
 import java.sql.SQLException;
 
+import lsi.ubu.OracleTableError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +29,7 @@ public class SQLException_banco extends SQLException {
 			l.info(ste.toString());
 		}
 	}
+
 
 	@Override
 	public String getMessage() { // Redefinicion del metodo de la clase
