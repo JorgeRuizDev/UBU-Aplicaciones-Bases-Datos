@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/build/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="FileSystemContext" level="project" />
+    <orderEntry type="library" name="Hibernate" level="project" />
+    <orderEntry type="library" name="Oracle" level="application" />
+    <orderEntry type="library" name="SLF4J" level="application" />
+    <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
+    <orderEntry type="library" name="EclipseLink" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/c3p0" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/c3p0" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/EclipseLink" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/EclipseLink" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/FileSystemContext/fscontext-4.6-b01.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/SLF4J" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/SLF4J" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/Oracle" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/Oracle" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="module-library">
+      <library name="envers (2)">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/Hibernate/envers" />
+          <root url="file://$MODULE_DIR$/lib/Hibernate/jpa-metamodel-generator" />
+          <root url="file://$MODULE_DIR$/lib/Hibernate/osgi" />
+          <root url="file://$MODULE_DIR$/lib/Hibernate/required" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/lib/Hibernate/osgi" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib/Hibernate/envers" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/Hibernate/jpa-metamodel-generator" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/Hibernate/osgi" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/Hibernate/required" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/Hibernate/osgi" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+  </component>
+</module>
