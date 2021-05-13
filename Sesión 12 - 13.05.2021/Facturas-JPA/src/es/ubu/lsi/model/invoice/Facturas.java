@@ -1,31 +1,40 @@
 package es.ubu.lsi.model.invoice;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "FACTURAS")
+//BOrramos el namedQuery
 public class Facturas {
     @Id
     @Column(name = "NRO")
     private Long nro;
 
-    @Column(name = "CLIENTE")
+    @Column(name = "CLIENTE", length = 10)
     private String cliente;
 
     @Column(name = "FECHA")
     private java.sql.Date fecha;
 
-    @Column(name = "TOTAL")
+    @Column(name = "TOTAL", precision = 8, scale = 2)
     private Long total;
 
-    @Column(name = "DIRECCION")
-    private String direccion;
+    public DireccionFacturacion getDireccionFacturacion() {
+        return direccionFacturacion;
+    }
 
-    @Column(name = "CP")
-    private String cp;
+    public void setDireccionFacturacion(DireccionFacturacion direccionFacturacion) {
+        this.direccionFacturacion = direccionFacturacion;
+    }
 
-    @Column(name = "CIUDAD")
-    private String ciudad;
+    @Embedded
+    private DireccionFacturacion direccionFacturacion;
+
+
+    private Set<Lineasfactura> lineasFacturasSet() {
+        return null;
+    }
 
     public Long getNro() {
         return this.nro;
@@ -59,27 +68,4 @@ public class Facturas {
         this.total = total;
     }
 
-    public String getDireccion() {
-        return this.direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getCp() {
-        return this.cp;
-    }
-
-    public void setCp(String cp) {
-        this.cp = cp;
-    }
-
-    public String getCiudad() {
-        return this.ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
 }

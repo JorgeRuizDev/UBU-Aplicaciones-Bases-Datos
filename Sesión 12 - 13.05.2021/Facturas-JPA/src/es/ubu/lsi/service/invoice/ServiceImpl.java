@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
 
+import es.ubu.lsi.dao.invoice.LineasFacturaDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,29 @@ public class ServiceImpl { // complete with extends and implements
 		EntityManager em = this.createSession();
 		try {
 			beginTransaction(em);
-			// transaction body... COMPLETAR POR LOS ALUMNOS, VER INDICACIONES DEL ENUNCIADO
+
+			// DAO
+			LineasFacturaDAO lineaDAO = new LineasFacturaDAO(em);
+
+
+			// Paso 1:
+			LineaFacturaId  id = new LineaFacturaId(linea, nro);
+			/* Añadir un segundo constructor apra que puede admitir ambos parámetros */
+
+			/*
+			public LineaFacturaId(int linea, int factura){
+				this.linea = linea;
+				this.factura = factura;
+			}*/
+			LineaFactura lineaFacturaBorrar = lineaDAO.findById(id);
+			// Ya hemos localizado el elemento, debemos commmprobar si el elemento existe o no existe.
+
+
+			if (lineaFacturaBorrrar != null){
+
+			}
+			else{ throw new InvoiceException(InvoiceError.NOT_EXIST_INVOICE_LINE);}
+
 			commitTransaction(em);
 			
 		// add catchs...
