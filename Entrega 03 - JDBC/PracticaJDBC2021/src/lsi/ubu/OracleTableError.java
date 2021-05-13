@@ -3,13 +3,25 @@ package lsi.ubu;
 import java.sql.SQLException;
 
 public class OracleTableError extends TableError {
+
+	//Subir Nota
+	/**
+	 * Método que compara una excepción con su código de error genérico
+	 * @param ex Excepción SQL
+	 * @param error Código de error de TableError
+	 * @return true si son equivalentes
+	 */
 	@Override
 	public boolean checkExceptionToCode(SQLException ex, int error) {
-		// return new
-		// OracleTableError().translate(e.getErrorCode())==TableError.FK_VIOLATED
 		return translate(ex.getErrorCode()) == error;
 	}
 
+	/**
+	 * Método que permite traducir uan excepción de Oracle a una excepción
+	 * genérica de TableError.
+	 * @param errorSGBD: Código de error Oracle.
+	 * @return Un valor ocrrespondiente al enumerado TableError.
+	 */
 	@Override
 	public int translate(int errorSGBD) {
 		switch (errorSGBD) {
