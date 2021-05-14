@@ -1,0 +1,22 @@
+Actualizar Eclipse VM (Usaremos Eclipse Enterprise)
+
+Instalar Jboss>Hibernate Tools (Help > Marketplace)
+
+
+Windows > Perspectiva > Others : Nos debería aperecer JBOSS, JPA e Hibernate, si es así, la instalación
+ha sido correcta. 
+
+Cambiamos la perspectiva (como el debugger) a JPA
+
+Instalación de Driver:
+
+Escogemos Oracle Thin Driver, le llamamos Oracle Thin Drive Eclipse.
+
+En jar List añadimos el driver desde user_lib_jpa > lib > Oracle >jdbc6.jar
+
+Nos conectamos con HR/HR.
+
+
+
+Importamos el fichero user_lib_jp.userlibraries para que nos importe todas las librerías como una user library.
+
