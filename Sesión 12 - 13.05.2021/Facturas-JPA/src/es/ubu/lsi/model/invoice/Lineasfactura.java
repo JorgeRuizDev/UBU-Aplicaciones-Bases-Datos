@@ -2,21 +2,9 @@ package es.ubu.lsi.model.invoice;
 
 import javax.persistence.*;
 
-@Entity()//Entity vacio.
+@Entity
 @Table(name = "LINEASFACTURA")
 public class Lineasfactura {
-
-    /*
-    Esto es de una clase generada por Eclipse que no hemos podido generar.
-
-    Especificamos los dos atributos que componen la clave primera, es mejor hacerlo
-    directamente sobre la clase, pero se cumplen si lo invocamos desde este lado.
-    @EmbeddedId
-    @AttributeOverride(({name="LINEA", column = @Column(name="LINEA", nullable=false, precision = 22, scale = 0)},
-     @AttributeOverride(name="nro", column = @Column(name="NRO", nullable = flase, precision = 22, scale=0)) // El override se lo hemos añadido a posterior
-    private LineaFacturaId id;
-    */
-
     @Id
     @Column(name = "LINEA")
     private Long linea;
@@ -25,22 +13,14 @@ public class Lineasfactura {
     @Column(name = "NRO")
     private Long nro;
 
-    @Column(name = "DESCRIPCION", length=10)
+    @Column(name = "DESCRIPCION")
     private String descripcion;
 
-    @Column(name = "UNIDADES", precision = 22, scale =0)
+    @Column(name = "UNIDADES")
     private Long unidades;
 
-    @Column(name = "IMPORTE", precision = 7)
+    @Column(name = "IMPORTE")
     private Long importe;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="NRO", nullable = false, updatable = false, insertable = false)
-    private Facturas factura;
-    //Mejor renombrar la clase a Factura, no Facturas
-
-
-
 
     public Long getLinea() {
         return this.linea;
