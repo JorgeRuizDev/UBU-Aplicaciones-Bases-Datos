@@ -8,3 +8,4 @@ bin/
 !/Sesión 07/PruebaSimple.zip
 
 .class
+*.jar

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <datasource-mapping>
+          <factory-entry name="Invoices" value="968220a8-adf5-45c0-9395-9bc786b76671" />
+        </datasource-mapping>
+        <naming-strategy-map />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/build/classes" />
     <exclude-output />
@@ -13,5 +25,99 @@
     <orderEntry type="library" name="SLF4J" level="project" />
     <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
     <orderEntry type="library" name="EclipseLink" level="project" />
+    <orderEntry type="module-library">
+      <library name="c3p0-0.9.5.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/c3p0/c3p0-0.9.5.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/c3p0/hibernate-c3p0-5.4.10.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/c3p0/mchange-commons-java-0.2.15.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.eclipse.persistence.extension.source_2.7.4.v20190115-ad5b7c6b2a">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/extension/org.eclipse.persistence.extension_2.7.4.v20190115-ad5b7c6b2a.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/jpa/jakarta.persistence_2.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/jpa/org.eclipse.persistence.jpa.modelgen_2.7.4.v20190115-ad5b7c6b2a.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/jpa/org.eclipse.persistence.jpars_2.7.4.v20190115-ad5b7c6b2a.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/eclipselink.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/EclipseLink/jpa" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/extension/org.eclipse.persistence.extension.source_2.7.4.v20190115-ad5b7c6b2a.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/jpa/jakarta.persistence.source_2.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/jpa/org.eclipse.persistence.jpa.modelgen.source_2.7.4.v20190115-ad5b7c6b2a.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/EclipseLink/jpa/org.eclipse.persistence.jpars.source_2.7.4.v20190115-ad5b7c6b2a.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/EclipseLink/jpa" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib/EclipseLink/jpa" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/EclipseLink/jpa" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/FileSystemContext" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/FileSystemContext" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-envers-5.4.13.Final">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/envers/hibernate-envers-5.4.13.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/jpa-metamodel-generator/hibernate-jpamodelgen-5.4.13.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/osgi/hibernate-osgi-5.4.13.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/osgi/javax.interceptor-api-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/antlr-2.7.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/classmate-1.5.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/byte-buddy-1.10.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/dom4j-2.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/FastInfoset-1.2.15.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/hibernate-commons-annotations-5.1.0.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/hibernate-jpa-2.1-api-1.0.0.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/hibernate-core-5.4.13.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/istack-commons-runtime-3.0.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/jandex-2.1.1.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/javassist-3.24.0-GA.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/javax.activation-api-1.2.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/javax.annotation-api-1.3.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/javax.persistence-api-2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/jaxb-api-2.3.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/jaxb-runtime-2.3.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/jboss-logging-3.3.2.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/stax-ex-1.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/jboss-transaction-api_1.2_spec-1.1.1.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/required/txw2-2.3.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/osgi/org.osgi.compendium-5.0.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/osgi/org.osgi.core-6.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/osgi/org.osgi.compendium-5.0.0.jar!/OSGI-OPT/src" />
+          <root url="jar://$MODULE_DIR$/lib/Hibernate/osgi/org.osgi.core-6.0.0.jar!/OSGI-OPT/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ojdbc6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/Oracle/ojdbc6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/Oracle/ucp.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/SLF4J/log4j-core-2.13.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/SLF4J/log4j-api-2.13.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/SLF4J/log4j-slf4j-impl-2.13.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/SLF4J/slf4j-api-1.7.30.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

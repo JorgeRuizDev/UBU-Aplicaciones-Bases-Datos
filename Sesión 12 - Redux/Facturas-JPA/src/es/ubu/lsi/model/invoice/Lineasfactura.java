@@ -10,17 +10,25 @@ import java.math.BigDecimal;
  * 
  */
 @Entity
+@Table(name="LINEASFACTURA")
 @NamedQuery(name="Lineasfactura.findAll", query="SELECT l FROM Lineasfactura l")
 public class Lineasfactura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
+	@AttributeOverrides({
+			@AttributeOverride( name="linea", column = @Column(name="LINEA", nullable= false, precision=22, scale=0)),
+			@AttributeOverride(name="nro", column = @Column(name="NRO", nullable= false, precision=22, scale=0))
+					})
 	private LineasfacturaPK id;
 
+	@Column(name="DESCRIPCION", length=10)
 	private String descripcion;
 
+	@Column(name="IMPORTE", precision=7)
 	private BigDecimal importe;
 
+	@Column(name="UNIDADES", precision=22, scale=0)
 	private BigDecimal unidades;
 
 	//bi-directional many-to-one association to Factura
