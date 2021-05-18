@@ -6,6 +6,9 @@
 		
 		<!--  Hibernate provider. -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>es.ubu.lsi.model.invoice.Factura</class>
+		<class>es.ubu.lsi.model.invoice.Lineasfactura</class>
+		<class>es.ubu.lsi.model.invoice.LineasfacturaPK</class>
 		
 		<!-- EclipseLink provider (other provider) -->
 		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->

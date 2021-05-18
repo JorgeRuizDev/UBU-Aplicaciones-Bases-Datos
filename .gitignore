@@ -6,3 +6,5 @@ bin/
 .idea/
 .iml
 !/Sesión 07/PruebaSimple.zip
+
+.class
