@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
 
+import es.ubu.lsi.dao.invoice.LineaFacturaDAO;
+import es.ubu.lsi.model.invoice.Lineasfactura;
+import es.ubu.lsi.model.invoice.LineasfacturaPK;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,24 +15,25 @@ import es.ubu.lsi.service.PersistenceService;
 
 /**
  * Transaction service solution.
- * 
+ *
  * @author <a href="mailto:jmaudes@ubu.es">Jesús Maudes</a>
  * @author <a href="mailto:rmartico@ubu.es">Raúl Marticorena</a>
  * @author <a href="mailto:mmabad@ubu.es">Mario Martínez</a>
  * @since 1.0
- *
  */
-public class ServiceImpl { // complete with extends and implements
+public class ServiceImpl extends PersistenceService implements Service { // complete with extends and implements
 
-	/** Logger. */
+	/**
+	 * Logger.
+	 */
 	private static final Logger logger = LoggerFactory
 			.getLogger(ServiceImpl.class);
 
 	/**
 	 * {@inheritDoc}.
+	 *
 	 * @param line {@inheritDoc}
-	 * @param nro {@inheritDoc}
-	 * 
+	 * @param nro  {@inheritDoc}
 	 * @throws PersistenceException {@inheritDoc}
 	 */
 	@Override
@@ -38,12 +42,36 @@ public class ServiceImpl { // complete with extends and implements
 		EntityManager em = this.createSession();
 		try {
 			beginTransaction(em);
-			// transaction body... COMPLETAR POR LOS ALUMNOS, VER INDICACIONES DEL ENUNCIADO
+
+			// 1º Creamos el DAO
+			LineaFacturaDAO lineaDAO = new LineaFacturaDAO(em);
+
+			// 2º Creamos la PK compuesta de LineaFactura:
+			LineasfacturaPK id = new LineasfacturaPK(nro, line);
+
+			// 3º Obtenemos la línea ( .findById() se encuentra en el DAO)
+			Lineasfactura lineaFacturaBorrar = lineaDAO.findById(id);
+
+			if (lineaFacturaBorrar != null) {
+				lineaDAO.remove(lineaFacturaBorrar);
+			} else {
+				throw new InvoiceException(InvoiceError.NOT_EXIST_INVOICE_LINE);
+			}
+
+
 			commitTransaction(em);
-			
-		// add catchs...
+		} catch (Exception ex) {
+			logger.error("Exception");
+			ex.printStackTrace();
+			if (em.getTransaction().isActive()) {
+				System.out.println("Commit rollback");
+				em.getTransaction().rollback();
+			}
+			logger.error(ex.getLocalizedMessage());
 		} finally {
-			// close resources
+			this.close(em);
 		}
 	}
 }
+
+

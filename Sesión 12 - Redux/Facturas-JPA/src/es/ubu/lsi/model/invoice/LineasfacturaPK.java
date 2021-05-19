@@ -19,6 +19,11 @@ public class LineasfacturaPK implements Serializable {
 
 	public LineasfacturaPK() {
 	}
+
+	public LineasfacturaPK(long nro, long linea){
+		this.nro = nro;
+		this.linea = linea;
+	}
 	public long getLinea() {
 		return this.linea;
 	}
