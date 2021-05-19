@@ -52,14 +52,23 @@ public class ServiceImpl extends PersistenceService implements Service { // comp
 			// 3º Obtenemos la línea ( .findById() se encuentra en el DAO)
 			Lineasfactura lineaFacturaBorrar = lineaDAO.findById(id);
 
+
+			// Para borrar la línea, le tenemos que pasar al Entity Manger la Entidad a borrar
 			if (lineaFacturaBorrar != null) {
+				System.out.println(lineaFacturaBorrar);
 				lineaDAO.remove(lineaFacturaBorrar);
 			} else {
+				rollbackTransaction(em);
 				throw new InvoiceException(InvoiceError.NOT_EXIST_INVOICE_LINE);
 			}
 
 
 			commitTransaction(em);
+		}catch(InvoiceException e){
+			logger.error("Exception");
+			logger.error(e.getLocalizedMessage());
+			throw e;
+
 		} catch (Exception ex) {
 			logger.error("Exception");
 			ex.printStackTrace();

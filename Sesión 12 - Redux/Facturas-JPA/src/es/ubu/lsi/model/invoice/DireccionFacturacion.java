@@ -2,6 +2,7 @@ package es.ubu.lsi.model.invoice;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -41,5 +42,26 @@ public class DireccionFacturacion implements Serializable {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-   
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof DireccionFacturacion)) return false;
+		DireccionFacturacion that = (DireccionFacturacion) o;
+		return Objects.equals(direccion, that.direccion) && Objects.equals(cp, that.cp) && Objects.equals(ciudad, that.ciudad);
+	}
+
+	@Override
+	public String toString() {
+		return "DireccionFacturacion{" +
+				"direccion='" + direccion + '\'' +
+				", cp='" + cp + '\'' +
+				", ciudad='" + ciudad + '\'' +
+				'}';
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(direccion, cp, ciudad);
+	}
 }

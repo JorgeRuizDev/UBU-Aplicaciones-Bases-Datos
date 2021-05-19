@@ -7,5 +7,5 @@ bin/
 .iml
 !/Sesión 07/PruebaSimple.zip
 
-.class
+*.class
 *.jar

@@ -12,6 +12,7 @@ public class LineasfacturaPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
+	@Column(insertable=false, updatable=false)
 	private long linea;
 
 	@Column(insertable=false, updatable=false)
@@ -48,6 +49,14 @@ public class LineasfacturaPK implements Serializable {
 		return 
 			(this.linea == castOther.linea)
 			&& (this.nro == castOther.nro);
+	}
+
+	@Override
+	public String toString() {
+		return "LineasfacturaPK{" +
+				"linea=" + linea +
+				", nro=" + nro +
+				'}';
 	}
 
 	public int hashCode() {

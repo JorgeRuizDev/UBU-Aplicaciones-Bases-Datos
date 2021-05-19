@@ -1,8 +1,12 @@
 package es.ubu.lsi.model.invoice;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 
 /**
@@ -33,7 +37,7 @@ public class Lineasfactura implements Serializable {
 
 	//bi-directional many-to-one association to Factura
 	@ManyToOne
-	@JoinColumn(name="NRO")
+	@JoinColumn(name="NRO", insertable = false, updatable = false)
 	private Factura factura;
 
 	public Lineasfactura() {
@@ -79,4 +83,27 @@ public class Lineasfactura implements Serializable {
 		this.factura = factura;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Lineasfactura)) return false;
+		Lineasfactura that = (Lineasfactura) o;
+		return Objects.equals(id, that.id) && Objects.equals(descripcion, that.descripcion) && Objects.equals(importe, that.importe) && Objects.equals(unidades, that.unidades) && Objects.equals(factura, that.factura);
+	}
+
+	@Override
+	public String toString() {
+		return "Lineasfactura{" +
+				"id=" + id +
+				", descripcion='" + descripcion + '\'' +
+				", importe=" + importe +
+				", unidades=" + unidades +
+				", factura=" + factura +
+				'}';
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, descripcion, importe, unidades, factura);
+	}
 }

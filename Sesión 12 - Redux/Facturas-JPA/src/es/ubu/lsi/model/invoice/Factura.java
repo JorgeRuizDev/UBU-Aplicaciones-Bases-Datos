@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -48,7 +49,7 @@ public class Factura implements Serializable {
 
 
 	//bi-directional many-to-one association to Lineasfactura
-	@OneToMany(mappedBy="factura")
+	@OneToMany(mappedBy="factura", cascade = CascadeType.ALL)
 	private List<Lineasfactura> lineasfacturas;
 
 
@@ -111,4 +112,26 @@ public class Factura implements Serializable {
 		return lineasfactura;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Factura)) return false;
+		Factura factura = (Factura) o;
+		return nro == factura.nro && Objects.equals(cliente, factura.cliente) && Objects.equals(fecha, factura.fecha) && Objects.equals(total, factura.total) && Objects.equals(direccionFacturacion, factura.direccionFacturacion) && Objects.equals(lineasfacturas, factura.lineasfacturas);
+	}
+
+	@Override
+	public String toString() {
+		return "Factura{" +
+				"nro=" + nro +
+				", cliente='" + cliente + '\'' +
+				", fecha=" + fecha +
+				", total=" + total +
+				'}';
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nro, cliente, fecha, total, direccionFacturacion, lineasfacturas);
+	}
 }
