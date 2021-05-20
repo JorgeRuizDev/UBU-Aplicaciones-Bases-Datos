@@ -20,7 +20,7 @@ import java.util.Objects;
 						query="SELECT f FROM Factura f" +
 								" ORDER BY f.nro"),
 
-				@NamedQuery(name="Factua.findAllWithLines",
+				@NamedQuery(name="Factura.findAllWithLines",
 						query="SELECT f FROM Factura f" +
 								" JOIN FETCH f.lineasfacturas")
 		}
