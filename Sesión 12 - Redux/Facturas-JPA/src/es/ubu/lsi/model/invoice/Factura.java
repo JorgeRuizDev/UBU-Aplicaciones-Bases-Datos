@@ -14,7 +14,17 @@ import java.util.Objects;
  */
 @Entity
 @Table(name="FACTURAS")
-//SOBRA: @NamedQuery(name="Factura.findAll", query="SELECT f FROM Factura f")
+@NamedQueries(
+		{
+				@NamedQuery(name="Factura.findAll",
+						query="SELECT f FROM Factura f" +
+								" ORDER BY f.nro"),
+
+				@NamedQuery(name="Factua.findAllWithLines",
+						query="SELECT f FROM Factura f" +
+								" JOIN FETCH f.lineasfacturas")
+		}
+)
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
