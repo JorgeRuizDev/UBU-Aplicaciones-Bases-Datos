@@ -1,8 +1,5 @@
 package es.ubu.lsi.model.invoice;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,7 +12,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name="LINEASFACTURA")
-@NamedQuery(name="Lineasfactura.findAll", query="SELECT l FROM Lineasfactura l")
+//@NamedQuery(name="Lineasfactura.findAll", query="SELECT l FROM Lineasfactura l")
 public class Lineasfactura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +34,7 @@ public class Lineasfactura implements Serializable {
 
 	//bi-directional many-to-one association to Factura
 	@ManyToOne
-	@JoinColumn(name="NRO", insertable = false, updatable = false)
+	@JoinColumn(name="NRO", insertable = false,nullable = false,  updatable = false)
 	private Factura factura;
 
 	public Lineasfactura() {

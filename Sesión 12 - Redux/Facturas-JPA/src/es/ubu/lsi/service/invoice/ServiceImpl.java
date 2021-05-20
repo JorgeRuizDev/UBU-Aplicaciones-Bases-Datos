@@ -1,7 +1,5 @@
 package es.ubu.lsi.service.invoice;
 
-import java.math.BigDecimal;
-
 import javax.persistence.EntityManager;
 
 import es.ubu.lsi.dao.invoice.LineaFacturaDAO;

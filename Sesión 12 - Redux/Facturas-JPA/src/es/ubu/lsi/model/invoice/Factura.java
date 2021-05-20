@@ -49,7 +49,7 @@ public class Factura implements Serializable {
 
 
 	//bi-directional many-to-one association to Lineasfactura
-	@OneToMany(mappedBy="factura", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="factura", fetch = FetchType.LAZY) // Fetch EAGER
 	private List<Lineasfactura> lineasfacturas;
 
 

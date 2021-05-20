@@ -12,7 +12,7 @@ public class LineasfacturaPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(insertable=false, updatable=false)
+	//@Column(insertable=false, updatable=false)
 	private long linea;
 
 	@Column(insertable=false, updatable=false)
