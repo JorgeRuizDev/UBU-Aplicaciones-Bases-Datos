@@ -2,7 +2,9 @@ package es.ubu.lsi.service.invoice;
 
 import javax.persistence.EntityManager;
 
+import es.ubu.lsi.dao.invoice.FacturaDAO;
 import es.ubu.lsi.dao.invoice.LineaFacturaDAO;
+import es.ubu.lsi.model.invoice.Factura;
 import es.ubu.lsi.model.invoice.Lineasfactura;
 import es.ubu.lsi.model.invoice.LineasfacturaPK;
 import org.slf4j.Logger;
@@ -10,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import es.ubu.lsi.service.PersistenceException;
 import es.ubu.lsi.service.PersistenceService;
+
+import java.math.BigDecimal;
 
 /**
  * Transaction service solution.
@@ -50,24 +54,43 @@ public class ServiceImpl extends PersistenceService implements Service { // comp
 			// 3º Obtenemos la línea ( .findById() se encuentra en el DAO)
 			Lineasfactura lineaFacturaBorrar = lineaDAO.findById(id);
 
-
 			// Para borrar la línea, le tenemos que pasar al Entity Manger la Entidad a borrar
 			if (lineaFacturaBorrar != null) {
 				System.out.println(lineaFacturaBorrar);
 				lineaDAO.remove(lineaFacturaBorrar);
+				
+				// Buscar factura
+				
+				FacturaDAO facturaDAO = new FacturaDAO(em);
+				Factura factura = facturaDAO.findById((long) nro);
+				//Actualizar Importe
+
+				if (factura != null){
+					BigDecimal total = factura.getTotal();
+					factura.setTotal(total.subtract(lineaFacturaBorrar.getImporte()));
+					facturaDAO.persist(factura);
+				}
+				else{
+					rollbackTransaction(em);
+					throw new InvoiceException(InvoiceError.NOT_EXIST_INVOICE_LINE);
+				}
+				
+				
 			} else {
 				rollbackTransaction(em);
 				throw new InvoiceException(InvoiceError.NOT_EXIST_INVOICE_LINE);
 			}
 
-
 			commitTransaction(em);
+
 		}catch(InvoiceException e){
+			rollbackTransaction(em);
 			logger.error("Exception");
 			logger.error(e.getLocalizedMessage());
 			throw e;
 
 		} catch (Exception ex) {
+			rollbackTransaction(em);
 			logger.error("Exception");
 			ex.printStackTrace();
 			if (em.getTransaction().isActive()) {
