@@ -27,5 +27,5 @@ public interface Service {
 	public  void borrarLinea(int line, int nro)
 			throws PersistenceException;
 
-    List<Factura> consultarFacturasDesequilibradas();
+    List<Factura> consultarFacturasDesequilibradas() throws PersistenceException;
 }

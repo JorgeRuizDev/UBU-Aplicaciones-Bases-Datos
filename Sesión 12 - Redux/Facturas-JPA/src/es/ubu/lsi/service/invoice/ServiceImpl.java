@@ -14,6 +14,7 @@ import es.ubu.lsi.service.PersistenceException;
 import es.ubu.lsi.service.PersistenceService;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,8 +105,51 @@ public class ServiceImpl extends PersistenceService implements Service { // comp
 	}
 
 	@Override
-	public List<Factura> consultarFacturasDesequilibradas() {
-		return null;
+	public List<Factura> consultarFacturasDesequilibradas() throws PersistenceException{
+		EntityManager em = this.createSession();
+		List <Factura> facturasDes = new ArrayList<>();
+
+		try{
+			beginTransaction(em);
+
+			FacturaDAO facturaDAO = new FacturaDAO(em);
+
+			// Sol 1:
+			//List <Factura> facturas = facturaDAO.findAll();
+
+			// Sol 2:
+			//	var facturas = facturaDAO.findAllWithLines();
+
+			var facturas = facturaDAO.findAllWithLinesWithGraph();
+
+			for (var factura : facturas){
+				BigDecimal total = new BigDecimal(0);
+
+				for(var linea : factura.getLineasfacturas()){
+					total.add(linea.getImporte());
+				}
+
+				if (!total.equals(factura.getTotal())){
+					facturasDes.add(factura);
+				}
+
+
+			}
+
+			rollbackTransaction(em);
+
+			return facturasDes;
+		} catch (Exception e) {
+			rollbackTransaction(em);
+			// Log etc
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			close(em);
+		}
+
+
 	}
 }
 
