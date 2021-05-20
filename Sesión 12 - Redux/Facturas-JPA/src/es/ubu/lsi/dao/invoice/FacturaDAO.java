@@ -44,4 +44,16 @@ public class FacturaDAO extends JpaDAO<Factura, Long> {
 			throw e;
 		}
 	}
+
+	public List<Factura> findAllWithLinesWithGraph(){
+		try{
+
+			return getEntityManager().createNamedQuery("Factura.findAll", Factura.class).
+					setHint("javax.persistence.loadGraph", getEntityManager()
+							.getEntityGraph("Factura.graph.invoicesWithLines")).getResultList();
+		}catch(Exception e){
+			throw e;
+		}
+	}
+
 }

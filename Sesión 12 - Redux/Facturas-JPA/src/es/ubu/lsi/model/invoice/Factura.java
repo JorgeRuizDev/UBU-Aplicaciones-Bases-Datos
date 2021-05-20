@@ -25,6 +25,9 @@ import java.util.Objects;
 								" JOIN FETCH f.lineasfacturas")
 		}
 )
+@NamedEntityGraph(name = "Factura.graph.invoicesWithLines",
+		attributeNodes = @NamedAttributeNode(value = "lineasfacturas"))
+
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -108,7 +111,7 @@ public class Factura implements Serializable {
 		this.lineasfacturas = lineasfacturas;
 	}
 
-	public Lineasfactura addLineasfactura(Lineasfactura lineasfactura) {
+	public Lineasfactura addLineasfacturas(Lineasfactura lineasfactura) {
 		getLineasfacturas().add(lineasfactura);
 		lineasfactura.setFactura(this);
 

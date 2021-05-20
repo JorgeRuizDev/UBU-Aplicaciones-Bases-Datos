@@ -1,6 +1,9 @@
 package es.ubu.lsi.service.invoice;
 
+import es.ubu.lsi.model.invoice.Factura;
 import es.ubu.lsi.service.PersistenceException;
+
+import java.util.List;
 
 /**
  * Transaction service.
@@ -23,4 +26,6 @@ public interface Service {
 	 */
 	public  void borrarLinea(int line, int nro)
 			throws PersistenceException;
+
+    List<Factura> consultarFacturasDesequilibradas();
 }

@@ -14,6 +14,7 @@ import es.ubu.lsi.service.PersistenceException;
 import es.ubu.lsi.service.PersistenceService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Transaction service solution.
@@ -56,7 +57,6 @@ public class ServiceImpl extends PersistenceService implements Service { // comp
 
 			// Para borrar la línea, le tenemos que pasar al Entity Manger la Entidad a borrar
 			if (lineaFacturaBorrar != null) {
-				System.out.println(lineaFacturaBorrar);
 				lineaDAO.remove(lineaFacturaBorrar);
 				
 				// Buscar factura
@@ -101,6 +101,11 @@ public class ServiceImpl extends PersistenceService implements Service { // comp
 		} finally {
 			this.close(em);
 		}
+	}
+
+	@Override
+	public List<Factura> consultarFacturasDesequilibradas() {
+		return null;
 	}
 }
 
