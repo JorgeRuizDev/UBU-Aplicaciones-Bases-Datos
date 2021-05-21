@@ -78,4 +78,6 @@ public abstract class JpaDAO<E,K> implements DAO<E,K> {
 	 */
 	@SuppressWarnings("unchecked")
 	public E findById(K id) { return (E) entityManager.find(entityClass, id); }
+
+	//public List<E> findAll() { return (E) entityManager.fi}
 }

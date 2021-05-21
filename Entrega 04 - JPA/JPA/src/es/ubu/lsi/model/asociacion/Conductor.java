@@ -18,16 +18,23 @@ public class Conductor implements Serializable {
 	@Id
 	@SequenceGenerator(name="CONDUCTOR_NIF_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONDUCTOR_NIF_GENERATOR")
+
+	@Column(name = "nif", length = 10)
 	private String nif;
 
+	@Column(name = "apellido", length = 50)
 	private String apellido;
 
+	@Column(name = "apellido", length = 50)
 	private String ciudad;
 
+	@Column(name = "apellido", length = 50)
 	private String cp;
 
+	@Column(name = "apellido", length = 50)
 	private String direccion;
 
+	@Column(name = "apellido", length = 50)
 	private String nombre;
 
 	private BigDecimal puntos;
