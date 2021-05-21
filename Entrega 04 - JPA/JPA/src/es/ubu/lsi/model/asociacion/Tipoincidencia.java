@@ -67,14 +67,14 @@ public class Tipoincidencia implements Serializable {
 
 	public Incidencia addIncidencia(Incidencia incidencia) {
 		getIncidencias().add(incidencia);
-		incidencia.setTipoincidencia(this);
+		incidencia.setTipoIncidencia(this);
 
 		return incidencia;
 	}
 
 	public Incidencia removeIncidencia(Incidencia incidencia) {
 		getIncidencias().remove(incidencia);
-		incidencia.setTipoincidencia(null);
+		incidencia.setTipoIncidencia(null);
 
 		return incidencia;
 	}
