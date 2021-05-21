@@ -1,0 +1,45 @@
+[ERROR] 2021-05-19 12:03:23.136 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:03:23.137 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 12:11:30.691 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:11:30.692 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 12:15:22.266 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:15:22.268 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 12:17:48.105 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:17:48.107 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 12:19:21.434 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:19:21.436 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 12:19:56.682 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:19:56.683 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[WARN ] 2021-05-19 12:28:09.777 [main] SqlExceptionHelper - SQL Error: 2292, SQLState: 23000
+[ERROR] 2021-05-19 12:28:09.779 [main] SqlExceptionHelper - ORA-02292: integrity constraint (HR.SYS_C0013812) violated - child record found
+
+[ERROR] 2021-05-19 12:28:09.786 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:28:09.788 [main] ServiceImpl - Error while committing the transaction
+[WARN ] 2021-05-19 12:28:09.994 [main] SqlExceptionHelper - SQL Error: 2292, SQLState: 23000
+[ERROR] 2021-05-19 12:28:09.994 [main] SqlExceptionHelper - ORA-02292: integrity constraint (HR.SYS_C0013812) violated - child record found
+
+[ERROR] 2021-05-19 12:28:09.996 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:28:09.997 [main] ServiceImpl - Error while committing the transaction
+[ERROR] 2021-05-19 12:29:38.879 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:29:38.881 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 12:30:28.347 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:30:28.348 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 12:32:27.709 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 12:32:27.710 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-19 17:32:20.943 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 17:32:20.943 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[WARN ] 2021-05-19 17:47:26.735 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[ERROR] 2021-05-19 17:47:28.382 [main] ServiceImpl - Exception
+[ERROR] 2021-05-19 17:47:28.382 [main] ServiceImpl - No existe esa línea de factura
+[WARN ] 2021-05-20 08:42:40.080 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[ERROR] 2021-05-20 08:42:41.799 [main] ServiceImpl - Exception
+[ERROR] 2021-05-20 08:42:41.800 [main] ServiceImpl - No existe esa línea de factura
+[ERROR] 2021-05-20 09:05:49.114 [main] ServiceImpl - Exception
+[ERROR] 2021-05-20 09:05:49.117 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[WARN ] 2021-05-20 09:11:59.265 [main] pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+[ERROR] 2021-05-20 09:12:00.811 [main] ServiceImpl - Exception
+[ERROR] 2021-05-20 09:12:00.812 [main] ServiceImpl - No existe esa línea de factura
+[ERROR] 2021-05-20 09:21:00.321 [main] ServiceImpl - Exception
+[ERROR] 2021-05-20 09:21:00.323 [main] ServiceImpl - No existe esa lÃ­nea de factura
+[ERROR] 2021-05-20 10:01:43.802 [main] ServiceImpl - Exception
+[ERROR] 2021-05-20 10:01:43.804 [main] ServiceImpl - No existe esa lÃ­nea de factura
