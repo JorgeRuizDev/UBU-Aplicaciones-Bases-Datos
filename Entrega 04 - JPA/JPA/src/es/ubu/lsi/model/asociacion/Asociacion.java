@@ -17,15 +17,14 @@ public class Asociacion implements Serializable {
 	@Id
 	@SequenceGenerator(name="ASOCIACION_IDASOC_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ASOCIACION_IDASOC_GENERATOR")
+
+	@Column(name="idasoc", length = 3)
 	private String idasoc;
 
-	private String ciudad;
-
-	private String cp;
-
-	private String direccion;
-
+	@Column(name="nombre", length = 50)
 	private String nombre;
+
+	private DireccionPostal direccionPostal;
 
 	//bi-directional many-to-many association to Conductor
 	@ManyToMany
@@ -51,28 +50,12 @@ public class Asociacion implements Serializable {
 		this.idasoc = idasoc;
 	}
 
-	public String getCiudad() {
-		return this.ciudad;
+	public void setDireccionPostal(DireccionPostal dp) {
+		this.direccionPostal = dp;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public String getCp() {
-		return this.cp;
-	}
-
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
-
-	public String getDireccion() {
-		return this.direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public DireccionPostal getDireccionPostal() {
+		return this.direccionPostal;
 	}
 
 	public String getNombre() {

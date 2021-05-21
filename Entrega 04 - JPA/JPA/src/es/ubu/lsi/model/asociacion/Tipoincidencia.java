@@ -19,9 +19,11 @@ public class Tipoincidencia implements Serializable {
 	@SequenceGenerator(name="TIPOINCIDENCIA_ID_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TIPOINCIDENCIA_ID_GENERATOR")
 	private long id;
-
+	
+	@Column(name = "descripcion", length=30)
 	private String descripcion;
 
+	@Column(name="valor", precision=10, scale=0)
 	private BigDecimal valor;
 
 	//bi-directional many-to-one association to Incidencia

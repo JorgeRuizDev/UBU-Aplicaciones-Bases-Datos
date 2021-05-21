@@ -19,24 +19,18 @@ public class Conductor implements Serializable {
 	@SequenceGenerator(name="CONDUCTOR_NIF_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONDUCTOR_NIF_GENERATOR")
 
+	private DireccionPostal direccionPostal;
+
 	@Column(name = "nif", length = 10)
 	private String nif;
 
 	@Column(name = "apellido", length = 50)
 	private String apellido;
-
-	@Column(name = "apellido", length = 50)
-	private String ciudad;
-
-	@Column(name = "apellido", length = 50)
-	private String cp;
-
-	@Column(name = "apellido", length = 50)
-	private String direccion;
-
+	
 	@Column(name = "apellido", length = 50)
 	private String nombre;
 
+	@Column(name = "puntos", precision = 3, scale = 0, columnDefinition = "12")
 	private BigDecimal puntos;
 
 	//bi-directional many-to-many association to Asociacion
@@ -66,28 +60,12 @@ public class Conductor implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public String getCiudad() {
-		return this.ciudad;
+	public void setDireccionPostal(DireccionPostal dp) {
+		this.direccionPostal = dp;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public String getCp() {
-		return this.cp;
-	}
-
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
-
-	public String getDireccion() {
-		return this.direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public DireccionPostal getDireccionPostal() {
+		return this.direccionPostal;
 	}
 
 	public String getNombre() {
