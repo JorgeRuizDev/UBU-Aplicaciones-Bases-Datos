@@ -12,47 +12,13 @@
     <orderEntry type="library" name="Oracle" level="project" />
     <orderEntry type="library" name="SLF4J" level="project" />
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="library" name="fscontext-4.6-b01" level="project" />
-    <orderEntry type="module-library">
-      <library name="envers">
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib_jpa/Hibernate/envers" />
-          <root url="file://$MODULE_DIR$/lib_jpa/Hibernate/jpa-metamodel-generator" />
-          <root url="file://$MODULE_DIR$/lib_jpa/Hibernate/osgi" />
-          <root url="file://$MODULE_DIR$/lib_jpa/Hibernate/required" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/lib_jpa/Hibernate/osgi" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/lib_jpa/Hibernate/envers" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/lib_jpa/Hibernate/jpa-metamodel-generator" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/lib_jpa/Hibernate/osgi" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/lib_jpa/Hibernate/required" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/lib_jpa/Hibernate/osgi" recursive="false" type="SOURCES" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib_jpa/Oracle" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/lib_jpa/Oracle" recursive="false" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="log4j-api-2.13.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib_jpa/SLF4J/log4j-api-2.13.1.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib_jpa/SLF4J/log4j-core-2.13.1.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib_jpa/SLF4J/log4j-slf4j-impl-2.13.1.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib_jpa/SLF4J/slf4j-api-1.7.30.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="c3p0" level="project" />
+    <orderEntry type="library" name="FileSystemContext" level="project" />
+    <orderEntry type="library" name="SLF4J" level="project" />
+    <orderEntry type="library" name="Oracle" level="project" />
+    <orderEntry type="library" name="envers" level="project" />
+    <orderEntry type="library" name="jpa-metamodel-generator" level="project" />
+    <orderEntry type="library" name="osgi" level="project" />
+    <orderEntry type="library" name="required" level="project" />
   </component>
 </module>

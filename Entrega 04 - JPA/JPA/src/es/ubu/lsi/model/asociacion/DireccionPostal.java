@@ -11,36 +11,39 @@ import javax.persistence.*;
  */
 @Embeddable
 public class DireccionPostal implements Serializable {
-
-	
-	private String direccion;
-	private String ciudad;
-	private BigInteger codigoPostal;
 	private static final long serialVersionUID = 1L;
+
+	@Column(name = "direccion", length = 100)
+	private String direccion;
+
+	@Column(name="ciudad", length = 20)
+	private String ciudad;
+
+	@Column(name = "cp", length = 5)
+	private BigInteger cp;
 
 	public DireccionPostal() {
 		super();
-	}   
+	}
+
 	public String getDireccion() {
 		return this.direccion;
 	}
-
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
-	}   
+	}
+
 	public String getCiudad() {
 		return this.ciudad;
 	}
-
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
-	}   
-	public BigInteger getCodigoPostal() {
-		return this.codigoPostal;
 	}
 
-	public void setCodigoPostal(BigInteger codigoPostal) {
-		this.codigoPostal = codigoPostal;
+	public BigInteger getCP() {
+		return this.cp;
 	}
-   
+	public void setCP(BigInteger cp) {
+		this.cp = cp;
+	}
 }
