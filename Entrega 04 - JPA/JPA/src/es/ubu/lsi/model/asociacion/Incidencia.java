@@ -27,9 +27,14 @@ public class Incidencia implements Serializable {
 	//bi-directional many-to-one association to Tipoincidencia
 	@ManyToOne
 	@JoinColumn(name="IDTIPO")
-	private Tipoincidencia tipoincidencia;
+	private Tipoincidencia tipoIncidencia;
 
 	public Incidencia() {
+	}
+
+	public Incidencia(Conductor conductor, Tipoincidencia tipoIncidencia){
+		this.conductor = conductor;
+		this.tipoIncidencia = tipoIncidencia;
 	}
 
 	public IncidenciaPK getId() {
@@ -56,12 +61,12 @@ public class Incidencia implements Serializable {
 		this.conductor = conductor;
 	}
 
-	public Tipoincidencia getTipoincidencia() {
-		return this.tipoincidencia;
+	public Tipoincidencia getTipoIncidencia() {
+		return this.tipoIncidencia;
 	}
 
-	public void setTipoincidencia(Tipoincidencia tipoincidencia) {
-		this.tipoincidencia = tipoincidencia;
+	public void setTipoIncidencia(Tipoincidencia tipoIncidencia) {
+		this.tipoIncidencia = tipoIncidencia;
 	}
 
 }
