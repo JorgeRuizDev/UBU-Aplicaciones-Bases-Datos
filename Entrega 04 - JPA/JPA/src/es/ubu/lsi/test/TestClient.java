@@ -44,7 +44,7 @@ public class TestClient {
 	private static final String SCRIPT_PATH = "sql/";
 
 	/** Simple date format. */
-	private static SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	private static final SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 	/**
 	 * Main.
@@ -179,6 +179,7 @@ public class TestClient {
 			con.commit();
 		} catch (Exception ex) {
 			logger.error("ERROR grave en test. " + ex.getLocalizedMessage());
+			assert con != null;
 			con.rollback();
 			throw ex;
 		} finally {
@@ -276,6 +277,7 @@ public class TestClient {
 			con.commit();
 		} catch (Exception ex) {
 			logger.error("ERROR grave en test. " + ex.getLocalizedMessage());
+			assert con != null;
 			con.rollback();
 			throw ex;
 		} finally {

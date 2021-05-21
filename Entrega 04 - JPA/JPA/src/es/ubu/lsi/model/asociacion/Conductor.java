@@ -26,7 +26,7 @@ public class Conductor implements Serializable {
 
 	@Column(name = "apellido", length = 50)
 	private String apellido;
-	
+
 	@Column(name = "apellido", length = 50)
 	private String nombre;
 

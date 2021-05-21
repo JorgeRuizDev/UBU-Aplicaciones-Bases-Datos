@@ -37,7 +37,7 @@ public class Asociacion implements Serializable {
 			@JoinColumn(name="NIF")
 			}
 		)
-	private Set<Conductor> conductors;
+	private Set<Conductor> conductores;
 
 	public Asociacion() {
 	}
@@ -66,12 +66,12 @@ public class Asociacion implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Set<Conductor> getConductors() {
-		return this.conductors;
+	public Set<Conductor> getConductores() {
+		return this.conductores;
 	}
 
-	public void setConductors(Set<Conductor> conductors) {
-		this.conductors = conductors;
+	public void setConductores(Set<Conductor> conductors) {
+		this.conductores = conductors;
 	}
 
 }
