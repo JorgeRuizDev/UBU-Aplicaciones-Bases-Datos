@@ -15,15 +15,15 @@ public class Asociacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ASOCIACION_IDASOC_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ")
+	@SequenceGenerator(name="ASOCIACION_IDASOC_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ", initialValue=1, allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ASOCIACION_IDASOC_GENERATOR")
-
-	@Column(name="idasoc", length = 3)
+	@Column(name="IDASOC", length = 3)
 	private String idasoc;
 
 	@Column(name="nombre", length = 50)
 	private String nombre;
 
+	@Embedded
 	private DireccionPostal direccionPostal;
 
 	//bi-directional many-to-many association to Conductor
@@ -31,7 +31,7 @@ public class Asociacion implements Serializable {
 	@JoinTable(
 		name="ASOCIACION_CONDUCTOR"
 		, joinColumns={
-			@JoinColumn(name="IDASOC")
+			@JoinColumn(name="IDASOC"),
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="NIF")

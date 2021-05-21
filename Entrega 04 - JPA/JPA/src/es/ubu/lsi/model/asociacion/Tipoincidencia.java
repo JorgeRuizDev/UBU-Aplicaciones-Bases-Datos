@@ -27,7 +27,7 @@ public class Tipoincidencia implements Serializable {
 	private BigDecimal valor;
 
 	//bi-directional many-to-one association to Incidencia
-	@OneToMany(mappedBy="tipoincidencia")
+	@OneToMany(mappedBy="tipoIncidencia")
 	private Set<Incidencia> incidencias;
 
 	public Tipoincidencia() {

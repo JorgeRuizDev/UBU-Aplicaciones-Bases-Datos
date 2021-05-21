@@ -98,10 +98,10 @@ public class TestClient {
 			System.out.println("Framework y servicio iniciado...");
 			
 			// consultar el ranking inicial...
-			consultarRanking(implService);
+			//consultarRanking(implService);
 			
 			// insertar nuevo tipo de incidencia
-			insertarNuevoTipoIncidencia(implService);
+			//insertarNuevoTipoIncidencia(implService);
 
 			// insertar incidencia para el conductor 10000000A con 3 puntos de penalización
 			insertarIncidenciaCorrecta(implService);

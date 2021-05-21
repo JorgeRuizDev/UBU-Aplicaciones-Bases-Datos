@@ -6,8 +6,9 @@ import javax.persistence.*;
 /**
  * Entity implementation class for Entity: TipoIncidenciaRanking
  */
-@Entity
 
+
+//@Entity
 public class TipoIncidenciaRanking implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,7 +28,7 @@ public class TipoIncidenciaRanking implements Serializable {
 	private enum TiposIncidencias {
 		MUY_GRAVE("Muy grave", 12),
 		GRAVE("Grave", 6),
-		MODERADA("Moderda", 3),
+		MODERADA("Moderada", 3),
 		LEVE("Leve", 1);
 
 		private final String tipo;
@@ -48,7 +49,7 @@ public class TipoIncidenciaRanking implements Serializable {
 
 		public static boolean contains(String tipo, int valor) {
 			for (TiposIncidencias incidencia : TiposIncidencias.values()) {
-				if (incidencia.getTipo().equals(tipo) && incidencia.getValor() == valor)
+				if (incidencia.getTipo().equals(tipo))
 					return true;
 			}
 			return false;

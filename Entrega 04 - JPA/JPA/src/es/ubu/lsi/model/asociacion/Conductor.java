@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * The persistent class for the CONDUCTOR database table.
- * 
+ *
  */
 @Entity
 @NamedQuery(name="Conductor.findAll", query="SELECT c FROM Conductor c")
@@ -16,15 +16,15 @@ public class Conductor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CONDUCTOR_NIF_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ")
+	@SequenceGenerator(name="CONDUCTOR_NIF_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONDUCTOR_NIF_GENERATOR")
-
-	private DireccionPostal direccionPostal;
-
-	@Column(name = "nif", length = 10)
+	@Column(name = "NIF", length = 10)
 	private String nif;
 
-	@Column(name = "apellido", length = 50)
+	@Embedded
+	private DireccionPostal direccionPostal;
+
+	@Column(name = "apellido", length = 50, insertable = false, updatable = false)
 	private String apellido;
 
 	@Column(name = "apellido", length = 50)
@@ -34,8 +34,8 @@ public class Conductor implements Serializable {
 	private BigDecimal puntos;
 
 	//bi-directional many-to-many association to Asociacion
-	@ManyToMany(mappedBy="conductors")
-	private Set<Asociacion> asociacions;
+	@ManyToMany(mappedBy="conductores")
+	private Set<Asociacion> asociaciones;
 
 	//bi-directional many-to-one association to Incidencia
 	@OneToMany(mappedBy="conductor")
@@ -84,12 +84,12 @@ public class Conductor implements Serializable {
 		this.puntos = puntos;
 	}
 
-	public Set<Asociacion> getAsociacions() {
-		return this.asociacions;
+	public Set<Asociacion> getAsociaciones() {
+		return this.asociaciones;
 	}
 
-	public void setAsociacions(Set<Asociacion> asociacions) {
-		this.asociacions = asociacions;
+	public void setAsociaciones(Set<Asociacion> asociaciones) {
+		this.asociaciones = asociaciones;
 	}
 
 	public Set<Incidencia> getIncidencias() {

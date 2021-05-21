@@ -11,6 +11,7 @@ import es.ubu.lsi.service.PersistenceService;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -36,12 +37,13 @@ public class ServiceImpl extends PersistenceService implements Service{
 		EntityManager em = this.createSession();
 		try {
 			beginTransaction(em);
+			System.out.println("HOLA");
+			logger.error("hooola");
 			IncidenciaDAO incidenciaDAO = new IncidenciaDAO(em);
 
 			ConductorDAO conductorDAO = new ConductorDAO(em);
 
 			Conductor conductor = conductorDAO.findById(nif);
-
 			if (conductor == null){
 				throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
 			}
@@ -70,7 +72,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 
 	@Override
 	public List<TipoIncidenciaRanking> consultarRanking() throws PersistenceException {
-		return null;
+		return new LinkedList<>();
 	}
 
 	@Override
