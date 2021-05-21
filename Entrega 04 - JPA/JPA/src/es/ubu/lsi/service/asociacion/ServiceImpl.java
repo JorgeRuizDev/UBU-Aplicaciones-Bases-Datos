@@ -46,9 +46,13 @@ public class ServiceImpl extends PersistenceService implements Service{
 				throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
 			}
 
+
+
+
 		} catch (IncidentException e) {
 			logException(e);
 			rollbackTransaction(em);
+			throw e;
 		} catch (Exception e){
 			logException(e);
 		}
