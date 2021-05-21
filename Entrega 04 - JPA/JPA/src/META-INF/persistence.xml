@@ -5,6 +5,11 @@
 	<persistence-unit name="AsociacionConductores">
 		<!-- Hibernate provider. -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>es.ubu.lsi.model.asociacion.Asociacion</class>
+		<class>es.ubu.lsi.model.asociacion.Conductor</class>
+		<class>es.ubu.lsi.model.asociacion.Incidencia</class>
+		<class>es.ubu.lsi.model.asociacion.IncidenciaPK</class>
+		<class>es.ubu.lsi.model.asociacion.Tipoincidencia</class>
 		
 		<!-- Eclipse Link provider (other provider) -->
 		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
