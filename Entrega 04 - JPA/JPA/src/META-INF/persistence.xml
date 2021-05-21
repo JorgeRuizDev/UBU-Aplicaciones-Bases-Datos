@@ -10,6 +10,8 @@
 		<class>es.ubu.lsi.model.asociacion.Incidencia</class>
 		<class>es.ubu.lsi.model.asociacion.IncidenciaPK</class>
 		<class>es.ubu.lsi.model.asociacion.Tipoincidencia</class>
+		<class>es.ubu.lsi.model.asociacion.TipoIncidenciaRanking</class>
+		<class>es.ubu.lsi.model.asociacion.DireccionPostal</class>
 		
 		<!-- Eclipse Link provider (other provider) -->
 		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
