@@ -23,7 +23,7 @@ public class Incidencia implements Serializable {
 
 	//bi-directional many-to-one association to Conductor
 	@ManyToOne
-	@JoinColumn(name = "NIF")
+	@JoinColumn(name = "NIF", insertable=false, updatable=false)
 	private Conductor conductor;
 
 	//bi-directional many-to-one association to Tipoincidencia
@@ -94,11 +94,11 @@ public class Incidencia implements Serializable {
 		if (this == o) return true;
 		if (!(o instanceof Incidencia)) return false;
 		Incidencia that = (Incidencia) o;
-		return Objects.equals(id, that.id) && Objects.equals(anotacion, that.anotacion) && Objects.equals(conductor, that.conductor) && Objects.equals(tipoIncidencia, that.tipoIncidencia);
+		return Objects.equals(id, that.id) && Objects.equals(anotacion, that.anotacion) && Objects.equals(conductor, that.conductor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, anotacion, tipoIncidencia);
+		return Objects.hash(id, anotacion);
 	}
 }

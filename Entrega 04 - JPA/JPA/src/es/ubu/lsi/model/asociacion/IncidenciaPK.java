@@ -15,9 +15,10 @@ public class IncidenciaPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="FECHA")
 	private java.util.Date fecha;
 
-	@Column(insertable=false, updatable=false)
+	@Column(name="NIF")
 	private String nif;
 
 	public IncidenciaPK() {

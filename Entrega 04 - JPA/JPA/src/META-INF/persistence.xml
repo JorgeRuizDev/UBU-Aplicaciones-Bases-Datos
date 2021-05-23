@@ -15,7 +15,7 @@
 		<class>es.ubu.lsi.model.asociacion.Conductor</class>
 		<class>es.ubu.lsi.model.asociacion.Incidencia</class>
 		<class>es.ubu.lsi.model.asociacion.IncidenciaPK</class>
-		<class>es.ubu.lsi.model.asociacion.Tipoincidencia</class>
+		<class>es.ubu.lsi.model.asociacion.TipoIncidencia</class>
 		<class>es.ubu.lsi.model.asociacion.TipoIncidenciaRanking</class>
 		<class>es.ubu.lsi.model.asociacion.DireccionPostal</class>
 		

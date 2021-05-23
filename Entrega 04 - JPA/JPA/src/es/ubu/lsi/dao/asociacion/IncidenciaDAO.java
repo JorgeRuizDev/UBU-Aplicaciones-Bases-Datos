@@ -20,6 +20,6 @@ public class IncidenciaDAO extends JpaDAO<Incidencia, IncidenciaPK> {
 
 	@Override
 	public List<Incidencia> findAll() {
-		return null;
+		return getEntityManager().createNamedQuery("Incidencia.findAll", Incidencia.class).getResultList();
 	}
 }

@@ -1,5 +1,6 @@
 package es.ubu.lsi.service.asociacion;
 
+import es.ubu.lsi.dao.asociacion.AsociacionDAO;
 import es.ubu.lsi.dao.asociacion.ConductorDAO;
 import es.ubu.lsi.dao.asociacion.IncidenciaDAO;
 import es.ubu.lsi.dao.asociacion.TipoIncidenciaDAO;
@@ -13,24 +14,25 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class ServiceImpl extends PersistenceService implements Service{
+public class ServiceImpl extends PersistenceService implements Service {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(ServiceImpl.class);
 
 
-	private static void logException(Exception e){
+	private static void logException(Exception e) {
 		logger.error(e.getLocalizedMessage());
-		System.out.println("Habemus Excepción");
-		System.out.println(e.getLocalizedMessage());
-		for (StackTraceElement trace : e.getStackTrace()){
+		System.err.println("Habemus Excepción");
+		//System.out.println(e.getLocalizedMessage());
+		for (StackTraceElement trace : e.getStackTrace()) {
 			logger.info(e.toString());
-			System.out.println(e.toString());
+			//System.out.println(e.toString());
 		}
 	}
 
@@ -45,13 +47,13 @@ public class ServiceImpl extends PersistenceService implements Service{
 
 			Conductor conductor = conductorDAO.findById(nif);
 
-			if (conductor == null){
+			if (conductor == null) {
 				throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
 			}
 
 			TipoIncidencia tipoIncidencia = tipoInciDAO.findById(tipo);
 
-			if (tipoIncidencia == null){
+			if (tipoIncidencia == null) {
 				throw new IncidentException(IncidentError.NOT_EXIST_INCIDENT_TYPE);
 			}
 
@@ -72,28 +74,106 @@ public class ServiceImpl extends PersistenceService implements Service{
 			logException(e);
 			rollbackTransaction(em);
 			throw e;
-		} catch (Exception e){
+		} catch (Exception e) {
 			rollbackTransaction(em);
 			logException(e);
-		}
-		finally {
+		} finally {
 			close(em);
 		}
 	}
 
 	@Override
 	public void indultar(String nif) throws PersistenceException {
+		EntityManager em = createSession();
+		try {
+			beginTransaction(em);
 
+			ConductorDAO conductorDAO = new ConductorDAO(em);
+			IncidenciaDAO incidenciaDAO = new IncidenciaDAO(em);
+
+			Conductor conductor = conductorDAO.findById(nif);
+
+			if (conductor == null) {
+				throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
+			}
+
+			conductor.setPuntos(new BigDecimal(12));
+
+			Set<Incidencia> incidencias = conductor.getIncidencias();
+			for (Incidencia incidencia : incidencias) {
+				incidenciaDAO.remove(incidencia);
+			}
+
+			commitTransaction(em);
+		} catch (IncidentException e) {
+			rollbackTransaction(em);
+			logException(e);
+			throw e;
+
+		} catch (Exception e) {
+			rollbackTransaction(em);
+			logException(e);
+		} finally {
+			close(em);
+		}
 	}
 
 	@Override
 	public List<Asociacion> consultarAsociaciones() throws PersistenceException {
+
+		EntityManager em = createSession();
+
+		try {
+			beginTransaction(em);
+			/*
+
+			select DESCRIPCION, COUNT(DESCRIPCION) from  INCIDENCIA
+            full outer join TIPOINCIDENCIA T on INCIDENCIA.IDTIPO = T.ID
+            group by DESCRIPCION
+
+			*/
+
+
+
+			commitTransaction(em);
+
+			throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
+		} catch (PersistenceException e) {
+			rollbackTransaction(em);
+			logException(e);
+			throw e;
+		} catch (Exception e) {
+			rollbackTransaction(em);
+			logException(e);
+		} finally {
+			close(em);
+		}
 		return null;
 	}
 
+
+
+
 	@Override
 	public List<TipoIncidenciaRanking> consultarRanking() throws PersistenceException {
-		return new LinkedList<>();
+		EntityManager em = createSession();
+
+		try {
+			beginTransaction(em);
+
+			commitTransaction(em);
+			throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
+		} catch (PersistenceException e) {
+			rollbackTransaction(em);
+			logException(e);
+			throw e;
+		} catch (Exception e) {
+			rollbackTransaction(em);
+			logException(e);
+		} finally {
+			close(em);
+		}
+		return null;
 	}
 
 	@Override
@@ -101,7 +181,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 
 		EntityManager em = createSession();
 
-		try{
+		try {
 			beginTransaction(em);
 			TipoIncidenciaDAO incidenciaDAO = new TipoIncidenciaDAO(em);
 
@@ -109,17 +189,11 @@ public class ServiceImpl extends PersistenceService implements Service{
 
 			incidenciaDAO.persist(nuevoTipoIncidencia);
 
-
-
-
-
 			commitTransaction(em);
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			logException(e);
 			throw e;
-		}
-		finally {
+		} finally {
 			close(em);
 		}
 
@@ -128,6 +202,37 @@ public class ServiceImpl extends PersistenceService implements Service{
 
 	@Override
 	public int consultarNumeroConductoresConIncidenciasEnAsoc(String idasoc) throws PersistenceException {
-		return 0;
+		EntityManager em = createSession();
+		try {
+			beginTransaction(em);
+			AsociacionDAO asociacionDAO = new AsociacionDAO(em);
+			Asociacion asociacionBuscada = asociacionDAO.findById(idasoc);
+
+			if (asociacionBuscada == null) {
+				throw new IncidentException(IncidentError.NOT_EXIST_ASSOCIATION);
+			}
+
+			int nConductoresIncidencias = 0;
+
+			for (Conductor conductor : asociacionBuscada.getConductores()) {
+				if (conductor.getIncidencias().size() > 0) {
+					nConductoresIncidencias++;
+				}
+			}
+
+			commitTransaction(em);
+			return nConductoresIncidencias;
+
+		} catch (IncidentException e) {
+			rollbackTransaction(em);
+			logException(e);
+			throw e;
+		} catch (Exception e) {
+			rollbackTransaction(em);
+			logException(e);
+		} finally {
+			close(em);
+		}
+		return -1;
 	}
 }

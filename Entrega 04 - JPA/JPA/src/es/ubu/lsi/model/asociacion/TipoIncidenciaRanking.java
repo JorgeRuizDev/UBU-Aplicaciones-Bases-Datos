@@ -13,41 +13,40 @@ public class TipoIncidenciaRanking implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	String tipo;
+	int nApariciones;
 
 	public TipoIncidenciaRanking() {
 		super();
 	}
 
-	public TipoIncidenciaRanking(String tipo, int penalizacion) {
-		if (! TiposIncidencias.contains(tipo, penalizacion)){
+	public TipoIncidenciaRanking(String tipo, int nApariciones) {
+		if (! TiposIncidencias.contains(tipo)){
 			throw new RuntimeException("Tipo de Incidencia Incorrecto");
 		}
 
+		this.tipo = tipo;
+		this.nApariciones = nApariciones;
 	}
 
 	private enum TiposIncidencias {
-		MUY_GRAVE("Muy grave", 12),
-		GRAVE("Grave", 6),
-		MODERADA("Moderada", 3),
-		LEVE("Leve", 1);
+		MUY_GRAVE("Muy grave"),
+		GRAVE("Grave"),
+		MODERADA("Moderada"),
+		LEVE("Leve");
 
 		private final String tipo;
-		private final int valor;
 
-		TiposIncidencias(String tipo, int valor) {
+		TiposIncidencias(String tipo) {
 			this.tipo = tipo;
-			this.valor = valor;
 		}
 
 		public String getTipo() {
 			return tipo;
 		}
 
-		public int getValor() {
-			return valor;
-		}
 
-		public static boolean contains(String tipo, int valor) {
+		public static boolean contains(String tipo) {
 			for (TiposIncidencias incidencia : TiposIncidencias.values()) {
 				if (incidencia.getTipo().equals(tipo))
 					return true;

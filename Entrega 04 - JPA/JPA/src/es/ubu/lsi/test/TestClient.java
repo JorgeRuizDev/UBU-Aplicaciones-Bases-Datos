@@ -101,12 +101,11 @@ public class TestClient {
 			//consultarRanking(implService);
 			
 			// insertar nuevo tipo de incidencia
-			//insertarNuevoTipoIncidencia(implService);
+			insertarNuevoTipoIncidencia(implService);
 
 			// insertar incidencia para el conductor 10000000A con 3 puntos de penalización
 			insertarIncidenciaCorrecta(implService);
 
-			/*
 			// intenta insertar con tipo de incidencia que no existe
 			insertarIncidenciaConTipoIncidenciaErroneo(implService);
 
@@ -121,11 +120,10 @@ public class TestClient {
 			consultarNumeroConductoresConIncidencias(implService);
 
 			// consultar número de conductores con incidencias en asoc que no existe
-			consultarNumeroConductoresConIncidenciasEnAsocQueNoExiste(implService);
+			//consultarNumeroConductoresConIncidenciasEnAsocQueNoExiste(implService);
 
 			// comprueba que la consulta de pistas carga todos los datos
-			consultarAsociacionesUsandoGrafo(implService);
-			*/
+			//consultarAsociacionesUsandoGrafo(implService);
 		} catch (Exception e) { // for testing code...
 			logger.error(e.getMessage());
 			e.printStackTrace();
