@@ -12,8 +12,8 @@ import java.util.Set;
  * 
  */
 @Entity
-@NamedQuery(name="Tipoincidencia.findAll", query="SELECT t FROM Tipoincidencia t")
-public class Tipoincidencia implements Serializable {
+@NamedQuery(name="TipoIncidencia.findAll", query="SELECT t FROM TipoIncidencia t")
+public class TipoIncidencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,7 +31,12 @@ public class Tipoincidencia implements Serializable {
 	@OneToMany(mappedBy="tipoIncidencia")
 	private Set<Incidencia> incidencias;
 
-	public Tipoincidencia() {
+	public TipoIncidencia() {
+	}
+
+	public TipoIncidencia(String descripcion, BigDecimal valor){
+		this.descripcion = descripcion;
+		this.valor = valor;
 	}
 
 	public long getId() {
@@ -82,7 +87,7 @@ public class Tipoincidencia implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Tipoincidencia{" +
+		return "TipoIncidencia{" +
 				"id=" + id +
 				", descripcion='" + descripcion + '\'' +
 				", valor=" + valor +
@@ -93,8 +98,8 @@ public class Tipoincidencia implements Serializable {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Tipoincidencia)) return false;
-		Tipoincidencia that = (Tipoincidencia) o;
+		if (!(o instanceof TipoIncidencia)) return false;
+		TipoIncidencia that = (TipoIncidencia) o;
 		return id == that.id && Objects.equals(descripcion, that.descripcion) && Objects.equals(valor, that.valor) && Objects.equals(incidencias, that.incidencias);
 	}
 

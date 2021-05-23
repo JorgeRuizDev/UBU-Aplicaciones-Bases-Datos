@@ -1,6 +1,7 @@
 package es.ubu.lsi.model.asociacion;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.*;
 
@@ -21,6 +22,12 @@ public class IncidenciaPK implements Serializable {
 
 	public IncidenciaPK() {
 	}
+
+	public IncidenciaPK(String nif, Date fecha){
+		this.nif = nif;
+		this.fecha = fecha;
+	}
+
 	public java.util.Date getFecha() {
 		return this.fecha;
 	}

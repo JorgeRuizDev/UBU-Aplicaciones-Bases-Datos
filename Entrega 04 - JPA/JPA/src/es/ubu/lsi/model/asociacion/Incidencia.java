@@ -1,39 +1,48 @@
 package es.ubu.lsi.model.asociacion;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.*;
 
 
 /**
  * The persistent class for the INCIDENCIA database table.
- * 
  */
 @Entity
-@NamedQuery(name="Incidencia.findAll", query="SELECT i FROM Incidencia i")
+@NamedQuery(name = "Incidencia.findAll", query = "SELECT i FROM Incidencia i")
 public class Incidencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private IncidenciaPK id;
 
+	@Column(name="ANOTACION")
 	@Lob
 	private String anotacion;
 
 	//bi-directional many-to-one association to Conductor
 	@ManyToOne
-	@JoinColumn(name="NIF")
+	@JoinColumn(name = "NIF")
 	private Conductor conductor;
 
 	//bi-directional many-to-one association to Tipoincidencia
 	@ManyToOne
-	@JoinColumn(name="IDTIPO")
-	private Tipoincidencia tipoIncidencia;
+	@JoinColumn(name = "IDTIPO")
+	private TipoIncidencia tipoIncidencia;
 
 	public Incidencia() {
 	}
 
-	public Incidencia(Conductor conductor, Tipoincidencia tipoIncidencia){
+
+	public Incidencia(Conductor conductor, Date fecha, TipoIncidencia tipo) {
+		this.id = new IncidenciaPK(conductor.getNif(), fecha);
+		this.conductor = conductor;
+		this.tipoIncidencia = tipo;
+		this.anotacion= "";
+	}
+
+	public Incidencia(Conductor conductor, TipoIncidencia tipoIncidencia) {
 		this.conductor = conductor;
 		this.tipoIncidencia = tipoIncidencia;
 	}
@@ -62,11 +71,11 @@ public class Incidencia implements Serializable {
 		this.conductor = conductor;
 	}
 
-	public Tipoincidencia getTipoIncidencia() {
+	public TipoIncidencia getTipoIncidencia() {
 		return this.tipoIncidencia;
 	}
 
-	public void setTipoIncidencia(Tipoincidencia tipoIncidencia) {
+	public void setTipoIncidencia(TipoIncidencia tipoIncidencia) {
 		this.tipoIncidencia = tipoIncidencia;
 	}
 

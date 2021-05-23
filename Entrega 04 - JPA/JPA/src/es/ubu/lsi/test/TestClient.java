@@ -105,7 +105,8 @@ public class TestClient {
 
 			// insertar incidencia para el conductor 10000000A con 3 puntos de penalización
 			insertarIncidenciaCorrecta(implService);
-			
+
+			/*
 			// intenta insertar con tipo de incidencia que no existe
 			insertarIncidenciaConTipoIncidenciaErroneo(implService);
 
@@ -124,7 +125,7 @@ public class TestClient {
 
 			// comprueba que la consulta de pistas carga todos los datos
 			consultarAsociacionesUsandoGrafo(implService);
-
+			*/
 		} catch (Exception e) { // for testing code...
 			logger.error(e.getMessage());
 			e.printStackTrace();
