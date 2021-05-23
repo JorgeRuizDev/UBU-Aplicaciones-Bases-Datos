@@ -1,5 +1,7 @@
 package es.ubu.lsi.model.asociacion;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Set;
@@ -15,8 +17,6 @@ public class Asociacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ASOCIACION_IDASOC_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ASOCIACION_IDASOC_GENERATOR")
 	@Column(name="IDASOC", length = 3)
 	private String idasoc;
 

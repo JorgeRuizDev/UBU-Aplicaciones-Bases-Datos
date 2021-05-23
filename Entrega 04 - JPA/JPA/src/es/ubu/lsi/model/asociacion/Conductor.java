@@ -16,8 +16,6 @@ public class Conductor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="CONDUCTOR_NIF_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONDUCTOR_NIF_GENERATOR")
 	@Column(name = "NIF", length = 10)
 	private String nif;
 
