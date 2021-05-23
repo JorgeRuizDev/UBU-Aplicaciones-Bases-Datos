@@ -3,6 +3,7 @@ package es.ubu.lsi.model.asociacion;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -79,4 +80,26 @@ public class Tipoincidencia implements Serializable {
 		return incidencia;
 	}
 
+	@Override
+	public String toString() {
+		return "Tipoincidencia{" +
+				"id=" + id +
+				", descripcion='" + descripcion + '\'' +
+				", valor=" + valor +
+				", incidencias=" + "_" +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Tipoincidencia)) return false;
+		Tipoincidencia that = (Tipoincidencia) o;
+		return id == that.id && Objects.equals(descripcion, that.descripcion) && Objects.equals(valor, that.valor) && Objects.equals(incidencias, that.incidencias);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, descripcion, valor, incidencias);
+	}
 }

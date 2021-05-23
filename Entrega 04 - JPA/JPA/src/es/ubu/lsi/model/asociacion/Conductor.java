@@ -3,6 +3,7 @@ package es.ubu.lsi.model.asociacion;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -112,4 +113,27 @@ public class Conductor implements Serializable {
 		return incidencia;
 	}
 
+	@Override
+	public String toString() {
+		return "Conductor{" +
+				"nif='" + nif + '\'' +
+				", direccionPostal=" + direccionPostal +
+				", apellido='" + apellido + '\'' +
+				", nombre='" + nombre + '\'' +
+				", puntos=" + puntos +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Conductor)) return false;
+		Conductor conductor = (Conductor) o;
+		return Objects.equals(nif, conductor.nif) && Objects.equals(direccionPostal, conductor.direccionPostal) && Objects.equals(apellido, conductor.apellido) && Objects.equals(nombre, conductor.nombre) && Objects.equals(puntos, conductor.puntos) ;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nif, direccionPostal, apellido, nombre, puntos );
+	}
 }

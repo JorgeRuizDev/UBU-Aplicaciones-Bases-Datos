@@ -1,6 +1,7 @@
 package es.ubu.lsi.model.asociacion;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 
 
@@ -69,4 +70,26 @@ public class Incidencia implements Serializable {
 		this.tipoIncidencia = tipoIncidencia;
 	}
 
+	@Override
+	public String toString() {
+		return "Incidencia{" +
+				"id=" + id +
+				", anotacion='" + anotacion + '\'' +
+				", conductor=" + "_" +
+				", tipoIncidencia=" + tipoIncidencia +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Incidencia)) return false;
+		Incidencia that = (Incidencia) o;
+		return Objects.equals(id, that.id) && Objects.equals(anotacion, that.anotacion) && Objects.equals(conductor, that.conductor) && Objects.equals(tipoIncidencia, that.tipoIncidencia);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, anotacion, tipoIncidencia);
+	}
 }

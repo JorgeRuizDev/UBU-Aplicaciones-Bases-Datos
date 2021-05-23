@@ -18,6 +18,6 @@ public class ConductorDAO extends JpaDAO<Conductor, String> {
 
 	@Override
 	public List<Conductor> findAll() {
-		return null;
+		return getEntityManager().createNamedQuery("Conductor.findAll", Conductor.class).getResultList();
 	}
 }

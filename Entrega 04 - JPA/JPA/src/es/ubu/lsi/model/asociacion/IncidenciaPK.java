@@ -1,6 +1,7 @@
 package es.ubu.lsi.model.asociacion;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -33,25 +34,24 @@ public class IncidenciaPK implements Serializable {
 		this.nif = nif;
 	}
 
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof IncidenciaPK)) {
-			return false;
-		}
-		IncidenciaPK castOther = (IncidenciaPK)other;
-		return 
-			this.fecha.equals(castOther.fecha)
-			&& this.nif.equals(castOther.nif);
+	@Override
+	public String toString() {
+		return "IncidenciaPK{" +
+				"fecha=" + fecha +
+				", nif='" + nif + '\'' +
+				'}';
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof IncidenciaPK)) return false;
+		IncidenciaPK that = (IncidenciaPK) o;
+		return Objects.equals(fecha, that.fecha) && Objects.equals(nif, that.nif);
+	}
+
+	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.fecha.hashCode();
-		hash = hash * prime + this.nif.hashCode();
-		
-		return hash;
+		return Objects.hash(fecha, nif);
 	}
 }

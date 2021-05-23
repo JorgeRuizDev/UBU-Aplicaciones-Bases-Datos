@@ -26,7 +26,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 
 	private static void logException(Exception e){
 		logger.error(e.getLocalizedMessage());
-
+		System.out.println("Habemus Excepción");
 		for (StackTraceElement trace : e.getStackTrace()){
 			logger.info(e.toString());
 		}
@@ -38,12 +38,12 @@ public class ServiceImpl extends PersistenceService implements Service{
 		try {
 			beginTransaction(em);
 			System.out.println("HOLA");
-			logger.error("hooola");
 			IncidenciaDAO incidenciaDAO = new IncidenciaDAO(em);
 
 			ConductorDAO conductorDAO = new ConductorDAO(em);
 
 			Conductor conductor = conductorDAO.findById(nif);
+
 			if (conductor == null){
 				throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
 			}

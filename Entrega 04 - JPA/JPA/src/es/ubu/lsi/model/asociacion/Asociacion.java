@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -74,4 +75,25 @@ public class Asociacion implements Serializable {
 		this.conductores = conductors;
 	}
 
+	@Override
+	public String toString() {
+		return "Asociacion{" +
+				"idasoc='" + idasoc + '\'' +
+				", nombre='" + nombre + '\'' +
+				", direccionPostal=" + direccionPostal +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Asociacion)) return false;
+		Asociacion that = (Asociacion) o;
+		return Objects.equals(idasoc, that.idasoc) && Objects.equals(nombre, that.nombre) && Objects.equals(direccionPostal, that.direccionPostal) ;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idasoc, nombre, direccionPostal);
+	}
 }
