@@ -21,7 +21,7 @@ public class Asociacion implements Serializable {
 	@Column(name="IDASOC", length = 3)
 	private String idasoc;
 
-	@Column(name="nombre", length = 50)
+	@Column(name="nombre", length = 50, nullable = false, unique = true)
 	private String nombre;
 
 	@Embedded

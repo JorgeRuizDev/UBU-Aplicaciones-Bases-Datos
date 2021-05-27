@@ -10,9 +10,7 @@ import es.ubu.lsi.service.PersistenceService;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +23,10 @@ public class ServiceImpl extends PersistenceService implements Service {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ServiceImpl.class);
 
-
+	/**
+	 * Función que permite loguear una excepción.
+	 * @param e Excepción a Loguear.
+	 */
 	private static void logException(Exception e) {
 		logger.error(e.getLocalizedMessage());
 		System.err.println("Habemus Excepción");
@@ -36,6 +37,13 @@ public class ServiceImpl extends PersistenceService implements Service {
 		}
 	}
 
+	/**
+	 * @{inheritdoc}
+	 * @param fecha @{inheritdoc}
+	 * @param nif   @{inheritdoc}
+	 * @param tipo  @{inheritdoc}
+	 * @throws PersistenceException @{inheritdoc}
+	 */
 	@Override
 	public void insertarIncidencia(Date fecha, String nif, long tipo) throws PersistenceException {
 		EntityManager em = this.createSession();
@@ -57,7 +65,7 @@ public class ServiceImpl extends PersistenceService implements Service {
 				throw new IncidentException(IncidentError.NOT_EXIST_INCIDENT_TYPE);
 			}
 
-
+			// restamos puntos
 			conductor.setPuntos(new BigDecimal(Math.max(conductor.getPuntos().subtract(tipoIncidencia.getValor()).intValue(), 0)));
 
 			conductorDAO.persist(conductor);
@@ -66,7 +74,6 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 			incidenciaDAO.persist(nuevaIncidencia);
 
-			System.out.println(incidenciaDAO.findById(new IncidenciaPK(nif, fecha)));
 
 			commitTransaction(em);
 
@@ -82,9 +89,15 @@ public class ServiceImpl extends PersistenceService implements Service {
 		}
 	}
 
+	/**
+	 * @{inheritdoc}
+	 * @param nif @{inheritdoc}
+	 * @throws PersistenceException @{inheritdoc}
+	 */
 	@Override
 	public void indultar(String nif) throws PersistenceException {
 		EntityManager em = createSession();
+		logger.info("\n\nInicio transacción indultar");
 		try {
 			beginTransaction(em);
 
@@ -118,20 +131,19 @@ public class ServiceImpl extends PersistenceService implements Service {
 		}
 	}
 
+	/**
+	 * @{inheritdoc}
+	 * @return @{inheritdoc}
+	 * @throws PersistenceException @{inheritdoc}
+	 */
 	@Override
 	public List<Asociacion> consultarAsociaciones() throws PersistenceException {
 
 		EntityManager em = createSession();
-
+		logger.info("\n\nInicio transacción consultarAsociaciones");
 		try {
 			beginTransaction(em);
-			/*
 
-			select DESCRIPCION, COUNT(DESCRIPCION) from  INCIDENCIA
-            full outer join TIPOINCIDENCIA T on INCIDENCIA.IDTIPO = T.ID
-            group by DESCRIPCION
-
-			*/
 
 
 
@@ -152,17 +164,28 @@ public class ServiceImpl extends PersistenceService implements Service {
 	}
 
 
-
-
+	/**
+	 * @{inheritdoc}
+	 * @return @{inheritdoc}
+	 * @throws PersistenceException @{inheritdoc}
+	 */
 	@Override
 	public List<TipoIncidenciaRanking> consultarRanking() throws PersistenceException {
 		EntityManager em = createSession();
+		logger.info("\n\nInicio transacción consultarRanking");
 
 		try {
 			beginTransaction(em);
 
+			IncidenciaDAO incidenciaDAO = new IncidenciaDAO(em);
+			List<TipoIncidenciaRanking> ranking = incidenciaDAO.consultarTipoIncidenciaRanking();
+
+			if (ranking == null || ranking.size() == 0){
+				throw new IncidentException(IncidentError.NO_INCIDENTS_REGISTERED);
+			}
+
 			commitTransaction(em);
-			throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
+			return ranking;
 		} catch (PersistenceException e) {
 			rollbackTransaction(em);
 			logException(e);
@@ -176,10 +199,17 @@ public class ServiceImpl extends PersistenceService implements Service {
 		return null;
 	}
 
+	/**
+	 * @{inheritdoc}
+	 * @param descripcion @{inheritdoc}
+	 * @param valor       @{inheritdoc}
+	 * @throws PersistenceException @{inheritdoc}
+	 */
 	@Override
 	public void insertarTipoIncidencia(String descripcion, int valor) throws PersistenceException {
 
 		EntityManager em = createSession();
+		logger.info("\n\nInicio transacción insertarTipoIncidencia");
 
 		try {
 			beginTransaction(em);
@@ -200,9 +230,17 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 	}
 
+	/**
+	 * @{inheritdoc}
+	 * @param idasoc @{inheritdoc}
+	 * @return @{inheritdoc}
+	 * @throws PersistenceException @{inheritdoc}
+	 */
 	@Override
 	public int consultarNumeroConductoresConIncidenciasEnAsoc(String idasoc) throws PersistenceException {
 		EntityManager em = createSession();
+		logger.info("\n\nInicio transacción consultarNumeroConductoresConIncidenciasEnAsoc");
+
 		try {
 			beginTransaction(em);
 			AsociacionDAO asociacionDAO = new AsociacionDAO(em);

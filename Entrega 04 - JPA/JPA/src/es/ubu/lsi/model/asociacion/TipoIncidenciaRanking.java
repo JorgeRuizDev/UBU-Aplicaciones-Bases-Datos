@@ -14,13 +14,13 @@ public class TipoIncidenciaRanking implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	String tipo;
-	int nApariciones;
+	long nApariciones;
 
 	public TipoIncidenciaRanking() {
 		super();
 	}
 
-	public TipoIncidenciaRanking(String tipo, int nApariciones) {
+	public TipoIncidenciaRanking(String tipo, long nApariciones) {
 		if (! TiposIncidencias.contains(tipo)){
 			throw new RuntimeException("Tipo de Incidencia Incorrecto");
 		}
@@ -55,4 +55,11 @@ public class TipoIncidenciaRanking implements Serializable {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "TipoIncidenciaRanking{" +
+				"tipo='" + tipo + '\'' +
+				", nApariciones=" + nApariciones +
+				'}';
+	}
 }

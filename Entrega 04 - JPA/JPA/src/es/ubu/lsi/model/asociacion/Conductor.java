@@ -23,13 +23,14 @@ public class Conductor implements Serializable {
 	@Embedded
 	private DireccionPostal direccionPostal;
 
-	@Column(name = "apellido", length = 50, insertable = false, updatable = false)
-	private String apellido;
-
-	@Column(name = "apellido", length = 50)
+	@Column(name = "NOMBRE", length = 50, nullable = false)
 	private String nombre;
 
-	@Column(name = "puntos", precision = 3, scale = 0, columnDefinition = "12")
+	@Column(name = "APELLIDO", length = 50, nullable = false)
+	private String apellido;
+
+	// scale = 0 no es necesario, JPA tiene ese valor por defecto.
+	@Column(name = "PUNTOS", precision = 3, scale = 0, columnDefinition = "12")
 	private BigDecimal puntos;
 
 	//bi-directional many-to-many association to Asociacion

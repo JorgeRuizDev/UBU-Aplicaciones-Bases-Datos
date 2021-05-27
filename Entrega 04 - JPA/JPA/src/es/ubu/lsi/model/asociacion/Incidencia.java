@@ -22,6 +22,7 @@ public class Incidencia implements Serializable {
 	private String anotacion;
 
 	//bi-directional many-to-one association to Conductor
+	//insertable,udpatable = false porque ya la tenemos definiada en IncidenciaPK
 	@ManyToOne
 	@JoinColumn(name = "NIF", insertable=false, updatable=false)
 	private Conductor conductor;
