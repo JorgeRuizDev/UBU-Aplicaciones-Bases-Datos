@@ -180,10 +180,6 @@ public class ServiceImpl extends PersistenceService implements Service {
 			IncidenciaDAO incidenciaDAO = new IncidenciaDAO(em);
 			List<TipoIncidenciaRanking> ranking = incidenciaDAO.consultarTipoIncidenciaRanking();
 
-			if (ranking == null || ranking.size() == 0){
-				throw new IncidentException(IncidentError.NO_INCIDENTS_REGISTERED);
-			}
-
 			commitTransaction(em);
 			return ranking;
 		} catch (PersistenceException e) {
