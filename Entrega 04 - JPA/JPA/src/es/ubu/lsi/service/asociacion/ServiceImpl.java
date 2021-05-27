@@ -11,6 +11,7 @@ import es.ubu.lsi.service.PersistenceService;
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class ServiceImpl extends PersistenceService implements Service {
 	 */
 	private static void logException(Exception e) {
 		logger.error(e.getLocalizedMessage());
-		System.err.println("Habemus Excepción");
+		//System.err.println("Habemus Excepción");
 		//System.out.println(e.getLocalizedMessage());
 		for (StackTraceElement trace : e.getStackTrace()) {
 			logger.info(e.toString());
@@ -77,13 +78,10 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 			commitTransaction(em);
 
-		} catch (IncidentException e) {
-			logException(e);
-			rollbackTransaction(em);
-			throw e;
 		} catch (Exception e) {
 			rollbackTransaction(em);
 			logException(e);
+			throw e;
 		} finally {
 			close(em);
 		}
@@ -118,14 +116,11 @@ public class ServiceImpl extends PersistenceService implements Service {
 			}
 
 			commitTransaction(em);
-		} catch (IncidentException e) {
+		} catch (Exception e) {
 			rollbackTransaction(em);
 			logException(e);
 			throw e;
 
-		} catch (Exception e) {
-			rollbackTransaction(em);
-			logException(e);
 		} finally {
 			close(em);
 		}
@@ -144,23 +139,26 @@ public class ServiceImpl extends PersistenceService implements Service {
 		try {
 			beginTransaction(em);
 
+			AsociacionDAO asociacionDAO = new AsociacionDAO(em);
 
+			List <Asociacion> asociaciones = asociacionDAO.findAllWithGraph();
 
+			for (var e : asociaciones)
+				System.out.println(e);
+
+			if (asociaciones == null || asociaciones.size() == 0)
+				throw new IncidentException(IncidentError.NO_ASSOCIATION_IN_DB);
 
 			commitTransaction(em);
 
-			throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
-		} catch (PersistenceException e) {
-			rollbackTransaction(em);
-			logException(e);
-			throw e;
+			return asociaciones;
 		} catch (Exception e) {
 			rollbackTransaction(em);
 			logException(e);
+			throw e;
 		} finally {
 			close(em);
 		}
-		return null;
 	}
 
 
@@ -182,17 +180,14 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 			commitTransaction(em);
 			return ranking;
-		} catch (PersistenceException e) {
-			rollbackTransaction(em);
-			logException(e);
-			throw e;
 		} catch (Exception e) {
 			rollbackTransaction(em);
 			logException(e);
+			throw e;
 		} finally {
 			close(em);
 		}
-		return null;
+
 	}
 
 	/**
@@ -257,16 +252,13 @@ public class ServiceImpl extends PersistenceService implements Service {
 			commitTransaction(em);
 			return nConductoresIncidencias;
 
-		} catch (IncidentException e) {
-			rollbackTransaction(em);
-			logException(e);
-			throw e;
 		} catch (Exception e) {
 			rollbackTransaction(em);
 			logException(e);
+			throw e;
 		} finally {
 			close(em);
 		}
-		return -1;
+
 	}
 }

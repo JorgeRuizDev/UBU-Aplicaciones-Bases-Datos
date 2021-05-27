@@ -18,7 +18,8 @@ public enum IncidentError {
 	NOT_AVAILABLE_POINTS("No tiene puntos disponibles para la sanción"),
 	ERROR_IN_DATE("Fecha y/o hora incorrecta"),
 	NOT_EXIST_ASSOCIATION("No existe la asociacion"),
-	NO_INCIDENTS_REGISTERED("La base de datos no tiene ningun tipo de incidencia registrada"),
+	NO_INCIDENTS_IN_DB("La base de datos no tiene ningun tipo de incidencia registrada"),
+	NO_ASSOCIATION_IN_DB("No hay asociaciones registradas en la base de datos"),
 	NOT_EXIST_DRIVER("No existe conductor")
 	;
 	/** Text. */

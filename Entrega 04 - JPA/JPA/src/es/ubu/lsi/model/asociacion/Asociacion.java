@@ -13,6 +13,21 @@ import java.util.Set;
  * 
  */
 @Entity
+@NamedEntityGraph(
+		name="graph.AsociacionesConductoresIncidenciasTipos",
+		attributeNodes = {@NamedAttributeNode(value="conductores", subgraph = "subgraph.conductoresAsociaciones")},
+
+		subgraphs = {
+				@NamedSubgraph(
+						name="subgraph.conductoresAsociaciones",
+						attributeNodes = @NamedAttributeNode(value="incidencias", subgraph = "subgraph.incidencias")
+				),
+				@NamedSubgraph(
+						name="subgraph.incidencias",
+						attributeNodes = @NamedAttributeNode(value="tipoIncidencia")
+				)
+		}
+)
 @NamedQuery(name="Asociacion.findAll", query="SELECT a FROM Asociacion a")
 public class Asociacion implements Serializable {
 	private static final long serialVersionUID = 1L;

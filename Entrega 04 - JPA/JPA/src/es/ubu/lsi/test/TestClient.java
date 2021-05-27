@@ -44,11 +44,11 @@ public class TestClient {
 	private static final String SCRIPT_PATH = "sql/";
 
 	/** Simple date format. */
-	private static final SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	private static SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 	/**
 	 * Main.
-	 * 
+	 *
 	 * @param args arguments.
 	 */
 	public static void main(String[] args) {
@@ -96,10 +96,10 @@ public class TestClient {
 			// JPA Service
 			implService = new ServiceImpl();
 			System.out.println("Framework y servicio iniciado...");
-			
+
 			// consultar el ranking inicial...
 			consultarRanking(implService);
-			
+
 			// insertar nuevo tipo de incidencia
 			insertarNuevoTipoIncidencia(implService);
 
@@ -112,10 +112,10 @@ public class TestClient {
 			// indultar a Juana con nif 10000000C, borrando sus dos incidencias y con 12
 			// puntos
 			indultarConductorConDosIncidencias(implService);
-			
+
 			// intenta indultar a un conductor que no existe
 			indultarAUnConductorQueNoExiste(implService);
-			
+
 			// consultar número de conductores con incidencias
 			consultarNumeroConductoresConIncidencias(implService);
 
@@ -124,6 +124,7 @@ public class TestClient {
 
 			// comprueba que la consulta de pistas carga todos los datos
 			consultarAsociacionesUsandoGrafo(implService);
+
 		} catch (Exception e) { // for testing code...
 			logger.error(e.getMessage());
 			e.printStackTrace();
@@ -134,7 +135,7 @@ public class TestClient {
 
 	/**
 	 * Indulta a conductor con dos incidencias.
-	 * 
+	 *
 	 * @param implService implementación del servicio
 	 * @throws Exception error en test
 	 */
@@ -178,17 +179,16 @@ public class TestClient {
 			con.commit();
 		} catch (Exception ex) {
 			logger.error("ERROR grave en test. " + ex.getLocalizedMessage());
-			assert con != null;
 			con.rollback();
 			throw ex;
 		} finally {
 			cerrarRecursos(con, st, rs);
 		}
 	}
-	
+
 	/**
 	 * Intenta indultar a un conductor que no existe.
-	 * 
+	 *
 	 * @param implService servicio
 	 */
 	private static void indultarAUnConductorQueNoExiste(Service implService) {
@@ -214,7 +214,7 @@ public class TestClient {
 
 	/**
 	 * Inserta una incidencia correcta.
-	 * 
+	 *
 	 * @param implService implementación del servicio
 	 * @throws Exception error en test
 	 */
@@ -250,12 +250,12 @@ public class TestClient {
 			"12/04/19 12:00:00,000000-20000000C-2\n" +
 			"12/04/19 13:00:00,000000-10000000C-3\n" +
 			"12/04/19 13:00:00,000000-20000000C-3\n" +
-			"13/04/19 14:00:00,000000-30000000A-3\n" +			
+			"13/04/19 14:00:00,000000-30000000A-3\n" +
 			"13/04/19 15:00:00,000000-30000000B-2\n" +
 			"13/04/19 16:00:00,000000-30000000C-1\n" +
 			"15/05/19 16:00:00,000000-10000000A-3\n"; // nueva fila
 			// @formatter:on
-	
+
 			if (cadenaEsperada.equals(resultado.toString())) {
 				System.out.println("\tOK incidencia bien insertada");
 			} else {
@@ -276,7 +276,6 @@ public class TestClient {
 			con.commit();
 		} catch (Exception ex) {
 			logger.error("ERROR grave en test. " + ex.getLocalizedMessage());
-			assert con != null;
 			con.rollback();
 			throw ex;
 		} finally {

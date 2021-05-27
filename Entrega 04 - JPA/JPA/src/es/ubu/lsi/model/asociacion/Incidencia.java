@@ -1,34 +1,40 @@
 package es.ubu.lsi.model.asociacion;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.*;
 
 
 /**
  * The persistent class for the INCIDENCIA database table.
  */
 @Entity
-@NamedQuery(name = "Incidencia.findAll", query = "SELECT i FROM Incidencia i")
+@NamedQueries({
+		@NamedQuery(name = "Incidencia.findAll", query = "SELECT i FROM Incidencia i"),
+		@NamedQuery(name = "Incidencia.consultarRanking", query =   "SELECT ti.descripcion as des, COUNT(i.tipoIncidencia)" +
+																	" from Incidencia i right join i.tipoIncidencia ti" +
+																	" group by ti.descripcion order by des desc")
+})
+
 public class Incidencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private IncidenciaPK id;
 
-	@Column(name="ANOTACION")
+	@Column(name = "ANOTACION")
 	@Lob
 	private String anotacion;
 
 	//bi-directional many-to-one association to Conductor
 	//insertable,udpatable = false porque ya la tenemos definiada en IncidenciaPK
 	@ManyToOne
-	@JoinColumn(name = "NIF", insertable=false, updatable=false)
+	@JoinColumn(name = "NIF", insertable = false, updatable = false)
 	private Conductor conductor;
 
 	//bi-directional many-to-one association to Tipoincidencia
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "IDTIPO")
 	private TipoIncidencia tipoIncidencia;
 
@@ -40,7 +46,7 @@ public class Incidencia implements Serializable {
 		this.id = new IncidenciaPK(conductor.getNif(), fecha);
 		this.conductor = conductor;
 		this.tipoIncidencia = tipo;
-		this.anotacion= "";
+		this.anotacion = "";
 	}
 
 	public Incidencia(Conductor conductor, TipoIncidencia tipoIncidencia) {

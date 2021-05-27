@@ -26,21 +26,30 @@ public class IncidenciaDAO extends JpaDAO<Incidencia, IncidenciaPK> {
 		super(em);
 	}
 
+	/**
+	 * @{inheritdoc}
+	 * @return @{inheritdoc}
+	 */
 	@Override
 	public List<Incidencia> findAll() {
 		return getEntityManager().createNamedQuery("Incidencia.findAll", Incidencia.class).getResultList();
 	}
 
+	/**
+	 * Obtiene una lista con los distintos tipos de incidencias y su número de incidencias activas.
+	 * @return Lista
+	 * @throws PersistenceException Si la base de datos no tiene ningún tipo de incidencia.
+	 */
 	public List<TipoIncidenciaRanking> consultarTipoIncidenciaRanking() throws PersistenceException {
 
-		Query query = getEntityManager().createQuery("SELECT ti.descripcion as des, COUNT(i.tipoIncidencia) from Incidencia i right join i.tipoIncidencia ti group by ti.descripcion order by des desc");
-		//query = getEntityManager().createQuery("SELECT ti.descripcion, i.id from TipoIncidencia ti join ti.incidencias i");
 		List<TipoIncidenciaRanking> lista = new LinkedList<>();
+
+		Query query = getEntityManager().createNamedQuery("Incidencia.consultarRanking");
 
 		List<Object[]> resultados = query.getResultList();
 
 		if (resultados == null || resultados.size() == 0) {
-			throw new IncidentException(IncidentError.NO_INCIDENTS_REGISTERED);
+			throw new IncidentException(IncidentError.NO_INCIDENTS_IN_DB);
 		}
 
 		for (Object[] e : resultados)

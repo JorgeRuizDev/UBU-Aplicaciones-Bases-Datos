@@ -17,6 +17,10 @@ public class TipoIncidenciaDAO extends JpaDAO<TipoIncidencia, Long> {
 		super(em);
 	}
 
+	/**
+	 * @{inheritdoc}
+	 * @return @{inheritdoc}
+	 */
 	@Override
 	public List<TipoIncidencia> findAll() {
 		return getEntityManager().createNamedQuery("TipoIncidencia.findAll", TipoIncidencia.class).getResultList();
