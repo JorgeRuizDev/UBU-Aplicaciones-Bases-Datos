@@ -30,7 +30,7 @@ public class IncidenciaDAO extends JpaDAO<Incidencia, IncidenciaPK> {
 
 	public List<TipoIncidenciaRanking> consultarTipoIncidenciaRanking(){
 
-		Query query = getEntityManager().createQuery("SELECT ti.descripcion as des, COUNT(ti.descripcion) from Incidencia i full join i.tipoIncidencia ti group by ti.descripcion order by des desc");
+		Query query = getEntityManager().createQuery("SELECT ti.descripcion as des, COUNT(i.tipoIncidencia) from Incidencia i right join i.tipoIncidencia ti group by ti.descripcion order by des desc");
 		//query = getEntityManager().createQuery("SELECT ti.descripcion, i.id from TipoIncidencia ti join ti.incidencias i");
 		List <TipoIncidenciaRanking> lista = new LinkedList<>();
 

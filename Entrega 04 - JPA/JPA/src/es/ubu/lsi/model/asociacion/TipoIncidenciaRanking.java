@@ -1,6 +1,7 @@
 package es.ubu.lsi.model.asociacion;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -53,6 +54,19 @@ public class TipoIncidenciaRanking implements Serializable {
 			}
 			return false;
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof TipoIncidenciaRanking)) return false;
+		TipoIncidenciaRanking that = (TipoIncidenciaRanking) o;
+		return nApariciones == that.nApariciones && Objects.equals(tipo, that.tipo);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(tipo, nApariciones);
 	}
 
 	@Override

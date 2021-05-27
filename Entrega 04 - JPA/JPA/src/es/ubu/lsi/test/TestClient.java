@@ -98,7 +98,7 @@ public class TestClient {
 			System.out.println("Framework y servicio iniciado...");
 			
 			// consultar el ranking inicial...
-			//consultarRanking(implService);
+			consultarRanking(implService);
 			
 			// insertar nuevo tipo de incidencia
 			insertarNuevoTipoIncidencia(implService);
@@ -120,10 +120,10 @@ public class TestClient {
 			consultarNumeroConductoresConIncidencias(implService);
 
 			// consultar número de conductores con incidencias en asoc que no existe
-			//consultarNumeroConductoresConIncidenciasEnAsocQueNoExiste(implService);
+			consultarNumeroConductoresConIncidenciasEnAsocQueNoExiste(implService);
 
 			// comprueba que la consulta de pistas carga todos los datos
-			//consultarAsociacionesUsandoGrafo(implService);
+			consultarAsociacionesUsandoGrafo(implService);
 		} catch (Exception e) { // for testing code...
 			logger.error(e.getMessage());
 			e.printStackTrace();
