@@ -16,7 +16,6 @@
 		<class>es.ubu.lsi.model.asociacion.Incidencia</class>
 		<class>es.ubu.lsi.model.asociacion.IncidenciaPK</class>
 		<class>es.ubu.lsi.model.asociacion.TipoIncidencia</class>
-		<class>es.ubu.lsi.model.asociacion.TipoIncidenciaRanking</class>
 		<class>es.ubu.lsi.model.asociacion.DireccionPostal</class>
 		
 		
@@ -33,7 +32,7 @@
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.generate_statistics" value="false" />
 			<property name="hibernate.use_sql_comments" value="true" />
-			
+			<property name="hibernate.enable_lazy_load_no_trans" value="true"/>
 
 			<!-- Solution 1: internal Hibernate pool connection not for production -->
 			<property name="hibernate.connection.pool_size" value="5" />

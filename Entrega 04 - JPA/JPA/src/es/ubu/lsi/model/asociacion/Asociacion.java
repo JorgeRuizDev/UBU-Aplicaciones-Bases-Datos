@@ -1,7 +1,5 @@
 package es.ubu.lsi.model.asociacion;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Objects;

@@ -16,12 +16,17 @@ import java.util.Set;
 public class TipoIncidencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+
+	@Transient
+	private static final int longDescripcion = 30;
+
 	@Id
 	@SequenceGenerator(name="TIPOINCIDENCIA_ID_GENERATOR", sequenceName="TIPOINCIDENCIA_SEQ", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TIPOINCIDENCIA_ID_GENERATOR")
 	private long id;
-	
-	@Column(name = "descripcion", length=30)
+
+
+	@Column(name = "descripcion", length=longDescripcion)
 	private String descripcion;
 
 	@Column(name="valor", precision=10, scale=0)
@@ -83,6 +88,10 @@ public class TipoIncidencia implements Serializable {
 		incidencia.setTipoIncidencia(null);
 
 		return incidencia;
+	}
+
+	public static int getLongDescripcion() {
+		return longDescripcion;
 	}
 
 	@Override

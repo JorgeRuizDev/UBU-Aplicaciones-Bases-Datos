@@ -1,8 +1,6 @@
 package es.ubu.lsi.service;
 
-import es.ubu.lsi.service.asociacion.ServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import javax.persistence.EntityManager;
 

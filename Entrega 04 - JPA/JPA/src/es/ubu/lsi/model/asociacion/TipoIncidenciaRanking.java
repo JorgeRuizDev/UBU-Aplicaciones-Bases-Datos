@@ -2,7 +2,6 @@ package es.ubu.lsi.model.asociacion;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.*;
 
 /**
  * Entity implementation class for Entity: TipoIncidenciaRanking

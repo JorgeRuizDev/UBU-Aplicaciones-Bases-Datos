@@ -20,7 +20,9 @@ public enum IncidentError {
 	NOT_EXIST_ASSOCIATION("No existe la asociacion"),
 	NO_INCIDENTS_IN_DB("La base de datos no tiene ningun tipo de incidencia registrada"),
 	NO_ASSOCIATION_IN_DB("No hay asociaciones registradas en la base de datos"),
-	NOT_EXIST_DRIVER("No existe conductor")
+	NOT_EXIST_DRIVER("No existe conductor"),
+	STRING_LENGTH_EXCEDED("La cadena introducida es demasiado larga"),
+	ILLEGAL_INT("El valor del entero no es apto"),
 	;
 	/** Text. */
 	private String text;

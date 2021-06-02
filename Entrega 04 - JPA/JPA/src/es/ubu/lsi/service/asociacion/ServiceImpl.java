@@ -7,16 +7,14 @@ import es.ubu.lsi.dao.asociacion.TipoIncidenciaDAO;
 import es.ubu.lsi.model.asociacion.*;
 import es.ubu.lsi.service.PersistenceException;
 import es.ubu.lsi.service.PersistenceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class ServiceImpl extends PersistenceService implements Service {
@@ -26,28 +24,57 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 	/**
 	 * Función que permite loguear una excepción.
+	 *
 	 * @param e Excepción a Loguear.
 	 */
 	private static void logException(Exception e) {
 		logger.error(e.getLocalizedMessage());
-		//System.err.println("Habemus Excepción");
-		//System.out.println(e.getLocalizedMessage());
+
 		for (StackTraceElement trace : e.getStackTrace()) {
-			logger.info(e.toString());
-			//System.out.println(e.toString());
+			logger.info(trace.toString());
 		}
 	}
 
 	/**
-	 * @{inheritdoc}
+	 * Comprobar nifs.
+	 * @param nif Lanza una excepción si el nif no es válido.
+	 * @throws IncidentException excepción.
+	 */
+	private void checkNif(String nif) throws IncidentException {
+		assert nif != null;
+		if (nif.length() != 9){
+			throw new IncidentException(IncidentError.STRING_LENGTH_EXCEDED);
+		}
+
+		/*
+		 char letraControl = nif.charAt(nif.length()-1);
+
+		 Aquí se comprobaría que el nif es válido, como se usan nifs inventados, no vamos comprobar nada
+		 */
+
+
+	}
+
+
+
+	/**
 	 * @param fecha @{inheritdoc}
 	 * @param nif   @{inheritdoc}
 	 * @param tipo  @{inheritdoc}
 	 * @throws PersistenceException @{inheritdoc}
+	 * @{inheritdoc}
 	 */
 	@Override
 	public void insertarIncidencia(Date fecha, String nif, long tipo) throws PersistenceException {
 		EntityManager em = this.createSession();
+
+		checkNif(nif);
+
+		// Si la fecha introducida es superior a la actual: No se pueden insertar incidencias del futuro:
+		if (fecha == null || fecha.compareTo(new Date(System.currentTimeMillis())) > 0){
+			throw new IncidentException(IncidentError.ERROR_IN_DATE);
+		}
+
 		try {
 			beginTransaction(em);
 			IncidenciaDAO incidenciaDAO = new IncidenciaDAO(em);
@@ -88,14 +115,17 @@ public class ServiceImpl extends PersistenceService implements Service {
 	}
 
 	/**
-	 * @{inheritdoc}
 	 * @param nif @{inheritdoc}
 	 * @throws PersistenceException @{inheritdoc}
+	 * @{inheritdoc}
 	 */
 	@Override
 	public void indultar(String nif) throws PersistenceException {
 		EntityManager em = createSession();
 		logger.info("\n\nInicio transacción indultar");
+
+		checkNif(nif);
+
 		try {
 			beginTransaction(em);
 
@@ -127,9 +157,9 @@ public class ServiceImpl extends PersistenceService implements Service {
 	}
 
 	/**
-	 * @{inheritdoc}
 	 * @return @{inheritdoc}
 	 * @throws PersistenceException @{inheritdoc}
+	 * @{inheritdoc}
 	 */
 	@Override
 	public List<Asociacion> consultarAsociaciones() throws PersistenceException {
@@ -141,10 +171,8 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 			AsociacionDAO asociacionDAO = new AsociacionDAO(em);
 
-			List <Asociacion> asociaciones = asociacionDAO.findAllWithGraph();
+			List<Asociacion> asociaciones = asociacionDAO.findAllWithGraph();
 
-			for (var e : asociaciones)
-				System.out.println(e);
 
 			if (asociaciones == null || asociaciones.size() == 0)
 				throw new IncidentException(IncidentError.NO_ASSOCIATION_IN_DB);
@@ -163,9 +191,9 @@ public class ServiceImpl extends PersistenceService implements Service {
 
 
 	/**
-	 * @{inheritdoc}
 	 * @return @{inheritdoc}
 	 * @throws PersistenceException @{inheritdoc}
+	 * @{inheritdoc}
 	 */
 	@Override
 	public List<TipoIncidenciaRanking> consultarRanking() throws PersistenceException {
@@ -191,16 +219,29 @@ public class ServiceImpl extends PersistenceService implements Service {
 	}
 
 	/**
-	 * @{inheritdoc}
 	 * @param descripcion @{inheritdoc}
 	 * @param valor       @{inheritdoc}
 	 * @throws PersistenceException @{inheritdoc}
+	 * @{inheritdoc}
 	 */
 	@Override
 	public void insertarTipoIncidencia(String descripcion, int valor) throws PersistenceException {
 
 		EntityManager em = createSession();
 		logger.info("\n\nInicio transacción insertarTipoIncidencia");
+
+
+		// length=30 no produce validación, únicamente lanza una SQLEXCEPTION.
+		// https://www.baeldung.com/jpa-size-length-column-differences
+		//
+		if (descripcion.length() > TipoIncidencia.getLongDescripcion()) {
+			throw new IncidentException(IncidentError.STRING_LENGTH_EXCEDED);
+		}
+
+		if (valor < 0) {
+			throw new IncidentException(IncidentError.ILLEGAL_INT);
+		}
+
 
 		try {
 			beginTransaction(em);
@@ -222,10 +263,10 @@ public class ServiceImpl extends PersistenceService implements Service {
 	}
 
 	/**
-	 * @{inheritdoc}
 	 * @param idasoc @{inheritdoc}
 	 * @return @{inheritdoc}
 	 * @throws PersistenceException @{inheritdoc}
+	 * @{inheritdoc}
 	 */
 	@Override
 	public int consultarNumeroConductoresConIncidenciasEnAsoc(String idasoc) throws PersistenceException {

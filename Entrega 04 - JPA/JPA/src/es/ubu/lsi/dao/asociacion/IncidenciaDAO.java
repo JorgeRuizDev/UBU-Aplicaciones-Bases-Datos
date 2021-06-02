@@ -9,9 +9,7 @@ import es.ubu.lsi.service.asociacion.IncidentError;
 import es.ubu.lsi.service.asociacion.IncidentException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,6 +44,7 @@ public class IncidenciaDAO extends JpaDAO<Incidencia, IncidenciaPK> {
 
 		Query query = getEntityManager().createNamedQuery("Incidencia.consultarRanking");
 
+		@SuppressWarnings("unchecked")
 		List<Object[]> resultados = query.getResultList();
 
 		if (resultados == null || resultados.size() == 0) {

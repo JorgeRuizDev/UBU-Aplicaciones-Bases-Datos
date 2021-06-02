@@ -2,7 +2,6 @@ package es.ubu.lsi.dao.asociacion;
 
 import es.ubu.lsi.dao.JpaDAO;
 import es.ubu.lsi.model.asociacion.Asociacion;
-import es.ubu.lsi.model.asociacion.Conductor;
 
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;

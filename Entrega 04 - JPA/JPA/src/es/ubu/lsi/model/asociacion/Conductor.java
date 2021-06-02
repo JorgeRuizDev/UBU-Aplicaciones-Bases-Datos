@@ -107,12 +107,7 @@ public class Conductor implements Serializable {
 		return incidencia;
 	}
 
-	public Incidencia removeIncidencia(Incidencia incidencia) {
-		getIncidencias().remove(incidencia);
-		incidencia.setConductor(null);
 
-		return incidencia;
-	}
 
 	@Override
 	public String toString() {

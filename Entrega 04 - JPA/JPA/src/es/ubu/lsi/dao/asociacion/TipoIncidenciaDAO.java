@@ -1,7 +1,6 @@
 package es.ubu.lsi.dao.asociacion;
 
 import es.ubu.lsi.dao.JpaDAO;
-import es.ubu.lsi.model.asociacion.Conductor;
 import es.ubu.lsi.model.asociacion.TipoIncidencia;
 
 import javax.persistence.EntityManager;
